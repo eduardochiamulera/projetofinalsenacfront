@@ -2,7 +2,7 @@ import { Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { map, catchError, flatMap } from "rxjs/operators";
-import { BaseResourceModel } from "../models/base-resource.model";
+import { BaseResourceModel } from "../models/base/base-resource.model";
 import { Guid } from 'guid-typescript';
 
 export abstract class BaseResourceService<T extends BaseResourceModel> {

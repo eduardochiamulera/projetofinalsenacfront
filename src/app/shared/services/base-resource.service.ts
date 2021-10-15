@@ -4,6 +4,7 @@ import { Observable, throwError } from "rxjs";
 import { map, catchError, flatMap } from "rxjs/operators";
 import { BaseResourceModel } from "../models/base/base-resource.model";
 import { Guid } from 'guid-typescript';
+import { UtilService } from './Utils/utils-resource.service';
 
 export abstract class BaseResourceService<T extends BaseResourceModel> {
  

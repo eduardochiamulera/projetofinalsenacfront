@@ -7,4 +7,8 @@ export class Pais extends BaseResourceModel{
                 codigoIbge?: string,){
         super()
     }
+
+    static fromJson(jsonData: any) : Pais{
+        return Object.assign(new Pais(), jsonData);
+    }
 }

@@ -12,7 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   exports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ]
 })
 export class CoreModule { }

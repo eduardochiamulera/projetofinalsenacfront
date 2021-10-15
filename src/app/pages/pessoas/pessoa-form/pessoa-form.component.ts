@@ -8,6 +8,8 @@ import { PessoaService } from "../shared/pessoa.service";
 import { switchMap } from "rxjs/operators";
 
 import toastr from "toastr";
+import { Pais } from 'src/app/shared/models/domain/pais-resource.model';
+import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 
 @Component({
   selector: 'app-pessoa-form',
@@ -22,6 +24,9 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
   pessoa: Pessoa = new Pessoa();
+  myControl = new FormControl();
+  options: string[] = ['Delhi', 'Mumbai', 'Banglore'];  
+  paises: Pais[] = [];
 
   constructor(
     private pessoaService: PessoaService,
@@ -34,6 +39,7 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
     this.setCurrentAction();
     this.buildPessoaForm();
     this.LoadPessoa();
+    this.loadPaises();
   }
   
   ngAfterContentChecked(): void {
@@ -120,5 +126,14 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
       this.serverErrorMessages = JSON.parse(error._body).errors;
     else
       this.serverErrorMessages = ["Falha na comunicação com o servidor. Por Favor tente novamente"]
+  }
+
+  private loadPaises(){
+    debugger;
+    this.pessoaService.utilService.getPaises().subscribe(
+      paises => this.paises = paises,
+      error => alert("Erro ao carregar a lista" + error)
+    )
+    console.log(this.paises)
   }
 }

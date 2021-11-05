@@ -4,10 +4,12 @@ import { Pais } from "./pais-resource.model";
 
 export class Cidade extends BaseResourceModel{
     constructor(nome?: string,
-                codigoIbge?: string,
-                estadoId?: string,
-                estado?: Estado
+                estadoId?: string                
             ){
         super()
+    }
+    
+    static fromJson(jsonData: any) : Cidade{
+        return Object.assign(new Cidade(), jsonData);
     }
 }

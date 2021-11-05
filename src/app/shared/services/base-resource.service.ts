@@ -42,7 +42,6 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   create(resource: T): Observable<T>{
-    
     return this.http.post(this.apiPath, resource, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'

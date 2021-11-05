@@ -13,8 +13,9 @@ export class Pessoa extends BaseResourceModel{
         public numero?: string,
         public complemento?: string,
         public bairro?: string,
-        public cidadeId?: string,
-        public estadoId?: string,
+        public cidade?: string,
+        public estado?: string,
+        public paisId?: string,
         public telefone?: string,
         public celular?: string,
         public contato?: string,
@@ -22,9 +23,6 @@ export class Pessoa extends BaseResourceModel{
         public nomeComercial?: string,
         public cliente?: boolean,
         public fornecedor?: boolean,
-        public estado?: Estado,
-        public pais?: Pais,
-        public cidade?: Cidade
     ){ super() }
 
     static fromJson(jsonData: any): Pessoa{

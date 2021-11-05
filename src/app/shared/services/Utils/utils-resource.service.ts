@@ -3,6 +3,8 @@ import { map, catchError, flatMap } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { Pais } from "../../models/domain/pais-resource.model";
 import { Injector } from "@angular/core";
+import { Estado } from "../../models/domain/estado-resource.model";
+import { Cidade } from "../../models/domain/cidade-resource.model";
 
 export class UtilService{
 
@@ -12,7 +14,7 @@ export class UtilService{
         this.http = injector.get(HttpClient);
     }
     
-    getPaises(): Observable<Pais[]> {
+    public getPaises(): Observable<Pais[]> {
         const paises = this.http.get("https://localhost:44385/api/pais", { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
@@ -23,6 +25,28 @@ export class UtilService{
           return paises;
     }
 
+    public getEstados(paisId: string): Observable<Estado[]> {
+        const estados = this.http.get(`https://localhost:44385/api/estado/${paisId}`, { headers : 
+            { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
+              'AppUser' : 'eduardofraga1994@gmail.com'
+            }}).pipe(
+              map(this.jsonDataToEstados),
+              catchError(this.handleError)
+          )
+          return estados;
+    }
+
+    public getCidades(estadoId: string): Observable<Estado[]> {
+        const cidades = this.http.get(`https://localhost:44385/api/cidade/${estadoId}`, { headers : 
+            { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
+              'AppUser' : 'eduardofraga1994@gmail.com'
+            }}).pipe(
+              map(this.jsonDataToCidades),
+              catchError(this.handleError)
+          )
+          return cidades;
+    }
+
     private handleError(error : any) : Observable<any>{
         console.log("ERRO NA REQUISIÇÃO => ",error);
         return throwError(error);
@@ -31,7 +55,18 @@ export class UtilService{
     private jsonDataToPaises(jsonData: any[]) : Pais[]{
         const paises: Pais[] = [];
         jsonData.forEach(pais => paises.push(Pais.fromJson(pais)));
-        console.log(paises);
         return paises;
+    }
+
+    private jsonDataToEstados(jsonData: any[]) : Estado[]{
+        const estados: Estado[] = [];
+        jsonData.forEach(estado => estados.push(Estado.fromJson(estado)));
+        return estados;
+    }
+
+    private jsonDataToCidades(jsonData: any[]) : Cidade[]{
+        const cidades: Cidade[] = [];
+        jsonData.forEach(cidade => cidades.push(Cidade.fromJson(cidade)));
+        return cidades;
     }
 }

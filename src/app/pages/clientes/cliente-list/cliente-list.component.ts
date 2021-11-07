@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
-import { Pessoa } from "../shared/pessoa.model";
-import { PessoaService } from "../shared/pessoa.service";
+import { Pessoa } from "../../../shared/models/platform/pessoa.model";
+import { ClienteService } from "../shared/cliente.service";
 import { BaseResourceListComponent } from "../../../shared/components/base-resource-list/base-resource-list.component";
 
 @Component({
@@ -11,7 +10,7 @@ import { BaseResourceListComponent } from "../../../shared/components/base-resou
 })
 export class ClienteListComponent extends BaseResourceListComponent<Pessoa>{
 
-  constructor(private pessoaService: PessoaService) {
-    super(pessoaService);
+  constructor(private clienteService: ClienteService) {
+    super(clienteService);
    }
 }

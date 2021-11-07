@@ -1,7 +1,7 @@
 import { Cidade } from "src/app/shared/models/domain/cidade-resource.model";
 import { Estado } from "src/app/shared/models/domain/estado-resource.model";
 import { Pais } from "src/app/shared/models/domain/pais-resource.model";
-import { BaseResourceModel } from "../../../shared/models/base/base-resource.model";
+import { BaseResourceModel } from "../base/base-resource.model";
 export class Pessoa extends BaseResourceModel{
     constructor(
         public nome?: string,

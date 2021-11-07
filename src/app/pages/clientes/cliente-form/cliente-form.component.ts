@@ -1,16 +1,13 @@
 import { Component, Injector } from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
 import { BaseResourceFormComponent } from "../../../shared/components/base-resource-form/base-resource-form.component";
-import { Pessoa } from "../shared/pessoa.model";
-import { PessoaService } from "../shared/pessoa.service";
+import { Pessoa } from "../../../shared/models/platform/pessoa.model";
+import { ClienteService } from "../shared/cliente.service";
 
 import { Pais } from 'src/app/shared/models/domain/pais-resource.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { Estado } from 'src/app/shared/models/domain/estado-resource.model';
 import { Cidade } from 'src/app/shared/models/domain/cidade-resource.model';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-cliente-form',
@@ -18,8 +15,6 @@ import { element } from 'protractor';
   styleUrls: ['./cliente-form.component.css']
 })
 export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
-  
- 
   keyword = 'nome';
   paises: Pais[] = [];
   estados: Estado[] = [];
@@ -27,8 +22,8 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
   private utilService : UtilService;
 
   constructor(
-    protected pessoaService: PessoaService, protected injector: Injector) {
-      super(injector, new Pessoa(), pessoaService, Pessoa.fromJson);
+    protected clienteService: ClienteService, protected injector: Injector) {
+      super(injector, new Pessoa(), clienteService, Pessoa.fromJson);
       this.utilService = new UtilService(injector);
    }
 

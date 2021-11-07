@@ -18,9 +18,9 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
       this.http = injector.get(HttpClient);
   }
 
-  getAll(): Observable<T[]>{
-
-    return this.http.get(this.apiPath, { headers : 
+  getAll(url: string = ""): Observable<T[]>{
+    const fullUrl = this.apiPath + url;
+    return this.http.get(fullUrl, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
       }}).pipe(

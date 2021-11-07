@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { BaseResourceViewComponent } from 'src/app/shared/components/base-resource-view/base-resource-view.component';
-import { Pessoa } from '../shared/pessoa.model';
-import { PessoaService } from '../shared/pessoa.service';
+import { Pessoa } from '../../../shared/models/platform/pessoa.model';
+import { ClienteService } from '../shared/cliente.service';
 
 @Component({
   selector: 'app-pessoa-view',
@@ -11,7 +11,7 @@ import { PessoaService } from '../shared/pessoa.service';
 export class ClienteViewComponent extends BaseResourceViewComponent<Pessoa> {
   
   
-  constructor(protected pessoaService: PessoaService, protected injector: Injector) {
+  constructor(protected pessoaService: ClienteService, protected injector: Injector) {
     super(injector, new Pessoa(), pessoaService, Pessoa.fromJson)
   }
   

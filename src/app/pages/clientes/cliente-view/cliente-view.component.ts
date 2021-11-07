@@ -15,7 +15,7 @@ export class ClienteViewComponent extends BaseResourceViewComponent<Pessoa> {
     super(injector, new Pessoa(), pessoaService, Pessoa.fromJson)
   }
   
-  protected buildResourceForm(): void {
+  protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
       nome: [null],
@@ -28,6 +28,7 @@ export class ClienteViewComponent extends BaseResourceViewComponent<Pessoa> {
       cidadeId: [null],
       estadoId: [null],
       paisId: [null],
+      pais:[null],
       telefone: [null],
       celular: [null],
       contato: [null],
@@ -35,7 +36,10 @@ export class ClienteViewComponent extends BaseResourceViewComponent<Pessoa> {
       nomeComercial: [null],
       cliente: [null],
       fornecedor: [null],
-      observacao: [null]
+      observacao: [null],
+      cidadeNome: [null],
+      estadoNome: [null],
+      paisNome: [null],
     });
   }
 }

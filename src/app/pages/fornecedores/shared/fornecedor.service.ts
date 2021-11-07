@@ -22,6 +22,17 @@ export class FornecedorService extends BaseResourceService<Pessoa> {
   
   create(pessoa: Pessoa): Observable<Pessoa>{
     pessoa.fornecedor = true;
+    pessoa.cidadeNome = null;
+    pessoa.estadoNome = null;
+    pessoa.paisNome = null;
     return super.create(pessoa);
+  }
+
+  update(pessoa: Pessoa): Observable<Pessoa>{
+    pessoa.fornecedor = true;
+    pessoa.cidadeNome = null;
+    pessoa.estadoNome = null;
+    pessoa.paisNome = null;
+    return super.update(pessoa);
   }
 }

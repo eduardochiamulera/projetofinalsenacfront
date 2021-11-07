@@ -11,7 +11,7 @@ import { BaseResourceService } from "../../services/base-resource.service";
 export abstract class BaseResourceViewComponent<T extends BaseResourceModel> implements OnInit {
 
   resourceForm: FormGroup;
-  pageTitle: string;
+  pageTitle: string = "Visualizar";
   myControl = new FormControl();
   protected route: ActivatedRoute;
   protected router: Router;

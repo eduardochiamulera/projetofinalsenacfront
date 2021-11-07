@@ -3,7 +3,7 @@ import { Estado } from "./estado-resource.model";
 import { Pais } from "./pais-resource.model";
 
 export class Cidade extends BaseResourceModel{
-    constructor(nome?: string,
+    constructor(public nome?: string,
                 estadoId?: string                
             ){
         super()

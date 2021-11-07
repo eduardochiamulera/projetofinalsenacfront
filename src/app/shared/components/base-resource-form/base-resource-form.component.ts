@@ -34,8 +34,8 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   ngOnInit(): void {
     this.setCurrentAction();
-    this.buildResourceForm();
     this.LoadResource();
+    this.buildResourceForm();
   }
   
   ngAfterContentChecked(): void {
@@ -60,6 +60,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         (resource) => {
           this.resource = resource
           this.resourceForm.patchValue(resource); //bind loaded resource data to resourceForm
+          this.afterLoad();
         },
         (error) => alert("Ocorreu um erro no servidor")
       )
@@ -88,9 +89,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected createResource(){
-    debugger;
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
-    return false;
     this.resourceService.create(resource).subscribe(
         resource => this.actionsForSuccess(resource),
       error => this.actionsForError(error)
@@ -128,4 +127,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected abstract buildResourceForm(): void;
+
+  protected abstract afterLoad(): void;
+  
 }

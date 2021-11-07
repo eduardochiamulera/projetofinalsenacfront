@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { Validators } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { BaseResourceFormComponent } from "../../../shared/components/base-resource-form/base-resource-form.component";
 import { Pessoa } from "../shared/pessoa.model";
 import { PessoaService } from "../shared/pessoa.service";
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Estado } from 'src/app/shared/models/domain/estado-resource.model';
 import { Cidade } from 'src/app/shared/models/domain/cidade-resource.model';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-cliente-form',
@@ -17,6 +18,8 @@ import { Cidade } from 'src/app/shared/models/domain/cidade-resource.model';
   styleUrls: ['./cliente-form.component.css']
 })
 export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
+  
+ 
   keyword = 'nome';
   paises: Pais[] = [];
   estados: Estado[] = [];
@@ -34,39 +37,58 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
       resources => this.paises = resources,
       error => alert("Erro ao carregar a lista de paises")
      );
+
      return super.ngOnInit();
     }
-    
-    ngAfterContentChecked(){
-     super.ngAfterContentChecked()
-   }
 
-   optionSelect(event){
-     this.resourceForm.patchValue({
-       paisId : event.id
-     });
-     this.utilService.getEstados(event.id).subscribe(
-      resources => this.estados = resources,
-      error => alert("Erro ao carregar a lista de estados")
-     );
+   optionSelect(event){     
+     if(event){
+       this.resourceForm.patchValue({
+         paisId : event.id
+       });
+       this.utilService.getEstados(event.id).subscribe(
+        resources => this.estados = resources,
+        error => alert("Erro ao carregar a lista de estados")
+       );
+     }else{
+      this.resourceForm.patchValue({
+        paisId : null
+      });
+      this.estados = [];
+      localStorage.removeItem("paises");
+     }
    }
 
    optionSelectEstado(event){
-    this.resourceForm.patchValue({
-      estadoId : event.id
-    });
-    this.utilService.getCidades(event.id).subscribe(
-      resources => this.cidades = resources,
-      error => alert("Erro ao carregar a lista de estados")
-     ); 
+     if(event){
+       this.resourceForm.patchValue({
+         estadoId : event.id
+       });
+       this.utilService.getCidades(event.id).subscribe(
+         resources => this.cidades = resources,
+         error => alert("Erro ao carregar a lista de estados")
+        ); 
+     }else{
+      this.resourceForm.patchValue({
+        estadoId : null
+      });
+      this.cidades = [];
+      localStorage.removeItem("estados");
+     }
   }
 
   optionSelectCidade(event){
-    this.resourceForm.patchValue({
-      paisId : event.id
-    });
+    if(event){
+      this.resourceForm.patchValue({
+        cidadeId : event.id
+      });
+    }else{
+      this.resourceForm.patchValue({
+        cidadeId : null
+      });
+      localStorage.removeItem("cidades");
+    }
   }
-
 
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
@@ -89,7 +111,26 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
       nomeComercial: [null],
       cliente: [null],
       fornecedor: [null],
-      observacao: [null]
+      observacao: [null],
+      cidadeNome: [null],
+      estadoNome: [null],
+      paisNome: [null],
     });
+  }
+
+  protected afterLoad(): void {
+    if(this.resource.estadoId){
+      this.utilService.getEstados(this.resource.paisId).subscribe(
+        resources => this.estados = resources,
+        error => alert("Erro ao carregar a lista de estados")
+       );
+     }
+
+     if(this.resource.cidadeId){
+      this.utilService.getCidades(this.resource.estadoId).subscribe(
+        resources => this.cidades = resources,
+        error => alert("Erro ao carregar a lista de estados")
+       );
+     }
   }
 }

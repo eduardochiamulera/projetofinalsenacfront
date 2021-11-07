@@ -95,6 +95,8 @@
                   historyIdentifier="paises"
                   [itemTemplate]="itemTemplate"
                   (selected)="optionSelect($event)"
+                  (inputCleared)="optionSelect($event)"
+                  formControlName="paisNome"
                   [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
               
@@ -117,7 +119,9 @@
                   historyIdentifier="estados"
                   [itemTemplate]="itemTemplate"                  
                   (selected)="optionSelectEstado($event)"
+                  (inputCleared)="optionSelectEstado($event)"
                   [disabled]= "estados.length ==0"
+                  formControlName="estadoNome"
                   [notFoundTemplate]="notFoundTemplate">
                   </ng-autocomplete>
               
@@ -140,7 +144,9 @@
                   historyIdentifier="cidades"
                   [itemTemplate]="itemTemplate"                  
                   (selected)="optionSelectCidade($event)"
+                  (inputCleared)="optionSelectCidade($event)"
                   [disabled]= "cidades.length ==0"
+                  formControlName="cidadeNome"
                   [notFoundTemplate]="notFoundTemplate">
                   </ng-autocomplete>
               

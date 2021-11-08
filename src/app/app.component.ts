@@ -7,7 +7,5 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  options: string[] = ['Delhi', 'Mumbai', 'Banglore'];
-  myControl = new FormControl();
-  title = 'projetoFinalSenacFront';
+   title = 'projetoFinalSenacFront';
 }

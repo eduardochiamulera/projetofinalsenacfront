@@ -24,7 +24,8 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
+                      <input type="hidden" formControlName="fornecedor" [ngModel]="true">
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" formControlName="nome">
                         <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">
@@ -32,22 +33,18 @@
                           <div *ngIf="resourceForm.get('nome').errors.minlength">deve ter no minimo 5 caracteres</div>
                         </div>
                     </div>
-                    <div class="col-sm-8">
-                        <label for="">Observacao</label>
-                        <input type="text" class="form-control" id="observacao" formControlName="observacao">
+                    <div class="col-sm-6">
+                      <label for="nome">Documento</label>
+                      <input type="text" class="form-control" id="cpfcnpj" formControlName="cpfcnpj">
+                      <div class="text-danger" *ngIf="resourceForm.get('cpfcnpj').invalid && resourceForm.get('nome').touched">
+                        <div *ngIf="resourceForm.get('cpfcnpj').errors.minlength">deve ter no minimo 5 caracteres</div>
+                      </div>
                     </div>
                 </div>
             </div>  
             <div class="form-row">
               <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="nome">Documento</label>
-                  <input type="text" class="form-control" id="cpfcnpj" formControlName="cpfcnpj">
-                  <div class="text-danger" *ngIf="resourceForm.get('cpfcnpj').invalid && resourceForm.get('nome').touched">
-                    <div *ngIf="resourceForm.get('cpfcnpj').errors.minlength">deve ter no minimo 5 caracteres</div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                   <label for="nome">CEP</label>
                   <input type="text" class="form-control" id="cep" formControlName="cep">
                   <!-- <div class="text-danger" *ngIf="resourceForm.get('cep').invalid && resourceForm.get('cep').touched">
@@ -59,20 +56,10 @@
                   <div class="text-danger" *ngIf="resourceForm.get('endereco').invalid && resourceForm.get('endereco').touched">
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group row">
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                   <label for="numero">Número</label>
                   <input type="text" class="form-control" id="numero" formControlName="numero">
                   <div class="text-danger" *ngIf="resourceForm.get('numero').invalid && resourceForm.get('numero').touched">
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <label for="complemento">Complemento</label>
-                  <input type="text" class="form-control" id="complemento" formControlName="complemento">
-                  <div class="text-danger" *ngIf="resourceForm.get('complemento').invalid && resourceForm.get('complemento').touched">
                   </div>
                 </div>
                 <div class="col-sm-4">
@@ -81,6 +68,16 @@
                   <div class="text-danger" *ngIf="resourceForm.get('bairro').invalid && resourceForm.get('bairro').touched">
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="complemento">Complemento</label>
+                  <input type="text" class="form-control" id="complemento" formControlName="complemento">
+                  <div class="text-danger" *ngIf="resourceForm.get('complemento').invalid && resourceForm.get('complemento').touched">
+                  </div>
+                </div> 
               </div>
             </div>    
             <div class="form-row">
@@ -160,6 +157,24 @@
                 </div>
               </div>
             </div>    
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Observacao</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="observacao" formControlName="observacao"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <div class="form-control form-check form-switch" id='divCliente'>
+                    <input class="form-check-input" formControlName="cliente" type="checkbox" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="cliente">Cliente</label>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
     <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">

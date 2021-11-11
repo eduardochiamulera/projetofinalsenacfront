@@ -22,7 +22,6 @@ export class ClienteService extends BaseResourceService<Pessoa> {
   }
 
   create(pessoa: Pessoa): Observable<Pessoa>{
-    pessoa.cliente = true;
     pessoa.cidadeNome = null;
     pessoa.estadoNome = null;
     pessoa.paisNome = null;

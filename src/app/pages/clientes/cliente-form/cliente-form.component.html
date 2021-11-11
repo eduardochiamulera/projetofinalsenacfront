@@ -1,173 +1,188 @@
 <nav class="mb-5"> 
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-      <li class="breadcrumb-item"><a routerLink="/cliente">Clientes</a></li>
-      <li class="breadcrumb-item active">{{pageTitle}}</li>
-    </ol>
-  </nav>
-  
-  <div class="row mb-4">
-    <div class="col-md">
-      <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
-    </div>
-    <div class="col-md">
-      <a routerLink="/cliente" class="btn btn-light float-end">Voltar</a>
-    </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/cliente">Clientes</a></li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
   </div>
+  <div class="col-md">
+    <a routerLink="/cliente" class="btn btn-light float-end">Voltar</a>
+  </div>
+</div>
 
-  <form [formGroup]="resourceForm" (ngSubmit)="submitForm()">
+<form [formGroup]="resourceForm" (ngSubmit)="submitForm()">
 
-    <div class="card">
-        <div class="card-header">
-            Informações sobre o cliente
-        </div>
-        <div class="card-body">
-            <div class="form-row">
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="nome">Nome</label>
-                        <input type="text" class="form-control" id="nome" formControlName="nome">
-                        <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">
-                          <div *ngIf="resourceForm.get('nome').errors.required">dado obrigatório</div>
-                          <div *ngIf="resourceForm.get('nome').errors.minlength">deve ter no minimo 5 caracteres</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <label for="">Observacao</label>
-                        <input type="text" class="form-control" id="observacao" formControlName="observacao">
-                    </div>
-                </div>
-            </div>  
-            <div class="form-row">
+  <div class="card">
+      <div class="card-header">
+          Informações sobre o cliente
+      </div>
+      <div class="card-body">
+          <div class="form-row">
               <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="nome">Documento</label>
-                  <input type="text" class="form-control" id="cpfcnpj" formControlName="cpfcnpj">
-                  <div class="text-danger" *ngIf="resourceForm.get('cpfcnpj').invalid && resourceForm.get('nome').touched">
-                    <div *ngIf="resourceForm.get('cpfcnpj').errors.minlength">deve ter no minimo 5 caracteres</div>
+                  <div class="col-sm-6">
+                    <input type="hidden" formControlName="cliente" [ngModel]="true">
+                      <label for="nome">Nome</label>
+                      <input type="text" class="form-control" id="nome" formControlName="nome">
+                      <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">
+                        <div *ngIf="resourceForm.get('nome').errors.required">dado obrigatório</div>
+                        <div *ngIf="resourceForm.get('nome').errors.minlength">deve ter no minimo 5 caracteres</div>
+                      </div>
                   </div>
-                </div>
-                <div class="col-sm-4">
-                  <label for="nome">CEP</label>
-                  <input type="text" class="form-control" id="cep" formControlName="cep">
-                  <!-- <div class="text-danger" *ngIf="resourceForm.get('cep').invalid && resourceForm.get('cep').touched">
-                  </div> -->
-                </div>
-                <div class="col-sm-4">
-                  <label for="nome">endereco</label>
-                  <input type="text" class="form-control" id="endereco" formControlName="endereco">
-                  <div class="text-danger" *ngIf="resourceForm.get('endereco').invalid && resourceForm.get('endereco').touched">
+                  <div class="col-sm-6">
+                    <label for="nome">Documento</label>
+                    <input type="text" class="form-control" id="cpfcnpj" formControlName="cpfcnpj">
+                    <div class="text-danger" *ngIf="resourceForm.get('cpfcnpj').invalid && resourceForm.get('nome').touched">
+                      <div *ngIf="resourceForm.get('cpfcnpj').errors.minlength">deve ter no minimo 5 caracteres</div>
+                    </div>
                   </div>
+              </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-2">
+                <label for="nome">CEP</label>
+                <input type="text" class="form-control" id="cep" formControlName="cep">
+                <!-- <div class="text-danger" *ngIf="resourceForm.get('cep').invalid && resourceForm.get('cep').touched">
+                </div> -->
+              </div>
+              <div class="col-sm-4">
+                <label for="nome">endereco</label>
+                <input type="text" class="form-control" id="endereco" formControlName="endereco">
+                <div class="text-danger" *ngIf="resourceForm.get('endereco').invalid && resourceForm.get('endereco').touched">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <label for="numero">Número</label>
+                <input type="text" class="form-control" id="numero" formControlName="numero">
+                <div class="text-danger" *ngIf="resourceForm.get('numero').invalid && resourceForm.get('numero').touched">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <label for="bairro">Bairro</label>
+                <input type="text" class="form-control" id="bairro" formControlName="bairro">
+                <div class="text-danger" *ngIf="resourceForm.get('bairro').invalid && resourceForm.get('bairro').touched">
                 </div>
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="numero">Número</label>
-                  <input type="text" class="form-control" id="numero" formControlName="numero">
-                  <div class="text-danger" *ngIf="resourceForm.get('numero').invalid && resourceForm.get('numero').touched">
-                  </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="complemento">Complemento</label>
+                <input type="text" class="form-control" id="complemento" formControlName="complemento">
+                <div class="text-danger" *ngIf="resourceForm.get('complemento').invalid && resourceForm.get('complemento').touched">
                 </div>
-                <div class="col-sm-4">
-                  <label for="complemento">Complemento</label>
-                  <input type="text" class="form-control" id="complemento" formControlName="complemento">
-                  <div class="text-danger" *ngIf="resourceForm.get('complemento').invalid && resourceForm.get('complemento').touched">
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <label for="bairro">Bairro</label>
-                  <input type="text" class="form-control" id="bairro" formControlName="bairro">
-                  <div class="text-danger" *ngIf="resourceForm.get('bairro').invalid && resourceForm.get('bairro').touched">
-                  </div>
-                </div>
+              </div> 
+            </div>
+          </div>    
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <label for="pais">País</label>
+                <ng-autocomplete
+                class="form-control"
+                [data]="paises"
+                [searchKeyword]="keyword"
+                placeholder="Digite o nome do Pais"
+                historyIdentifier="paises"
+                [itemTemplate]="itemTemplate"
+                (selected)="optionSelect($event)"
+                (inputCleared)="optionSelect($event)"
+                formControlName="paisNome"
+                [notFoundTemplate]="notFoundTemplate">
+              </ng-autocomplete>
+            
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.nome"></a>
+              </ng-template>
+            
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
               </div>
-            </div>    
-            <div class="form-row">
-              <div class="form-group row">
-                <div class="col-sm-4">
-                  <label for="pais">País</label>
-                  <ng-autocomplete
-                  class="form-control"
-                  [data]="paises"
-                  [searchKeyword]="keyword"
-                  placeholder="Digite o nome do Pais"
-                  historyIdentifier="paises"
-                  [itemTemplate]="itemTemplate"
-                  (selected)="optionSelect($event)"
-                  (inputCleared)="optionSelect($event)"
-                  formControlName="paisNome"
-                  [notFoundTemplate]="notFoundTemplate">
+
+              <div class="col-sm-4">
+                <label for="estado">Estado</label>
+                <ng-autocomplete
+                class="form-control"
+                [data]="estados"
+                [searchKeyword]="keyword"
+                placeholder="Digite o nome do Estado"
+                historyIdentifier="estados"
+                [itemTemplate]="itemTemplate"                  
+                (selected)="optionSelectEstado($event)"
+                (inputCleared)="optionSelectEstado($event)"
+                [disabled]= "estados.length ==0"
+                formControlName="estadoNome"
+                [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
-              
-                <ng-template #itemTemplate let-item>
+            
+                <ng-template #itemTemplateEstado let-item>
                   <a [innerHTML]="item.nome"></a>
                 </ng-template>
-              
-                <ng-template #notFoundTemplate let-notFound>
+            
+                <ng-template #notFoundTemplateEstado let-notFound>
                   <div [innerHTML]="notFound"></div>
                 </ng-template>
-                </div>
+              </div>
 
-                <div class="col-sm-4">
-                  <label for="estado">Estado</label>
-                  <ng-autocomplete
-                  class="form-control"
-                  [data]="estados"
-                  [searchKeyword]="keyword"
-                  placeholder="Digite o nome do Estado"
-                  historyIdentifier="estados"
-                  [itemTemplate]="itemTemplate"                  
-                  (selected)="optionSelectEstado($event)"
-                  (inputCleared)="optionSelectEstado($event)"
-                  [disabled]= "estados.length ==0"
-                  formControlName="estadoNome"
-                  [notFoundTemplate]="notFoundTemplate">
-                  </ng-autocomplete>
-              
-                  <ng-template #itemTemplateEstado let-item>
-                    <a [innerHTML]="item.nome"></a>
-                  </ng-template>
-              
-                  <ng-template #notFoundTemplateEstado let-notFound>
-                    <div [innerHTML]="notFound"></div>
-                  </ng-template>
-                </div>
-
-                <div class="col-sm-4">
-                  <label for="cidade">Cidade</label>
-                  <ng-autocomplete
-                  class="form-control"
-                  [data]="cidades"
-                  [searchKeyword]="keyword"
-                  placeholder="Digite o nome da Cidade"
-                  historyIdentifier="cidades"
-                  [itemTemplate]="itemTemplate"                  
-                  (selected)="optionSelectCidade($event)"
-                  (inputCleared)="optionSelectCidade($event)"
-                  [disabled]= "cidades.length ==0"
-                  formControlName="cidadeNome"
-                  [notFoundTemplate]="notFoundTemplate">
-                  </ng-autocomplete>
-              
-                  <ng-template #itemTemplateCidade let-item>
-                    <a [innerHTML]="item.nome"></a>
-                  </ng-template>
-              
-                  <ng-template #notFoundTemplateCidade let-notFound>
-                    <div [innerHTML]="notFound"></div>
-                  </ng-template>
+              <div class="col-sm-4">
+                <label for="cidade">Cidade</label>
+                <ng-autocomplete
+                class="form-control"
+                [data]="cidades"
+                [searchKeyword]="keyword"
+                placeholder="Digite o nome da Cidade"
+                historyIdentifier="cidades"
+                [itemTemplate]="itemTemplate"                  
+                (selected)="optionSelectCidade($event)"
+                (inputCleared)="optionSelectCidade($event)"
+                [disabled]= "cidades.length ==0"
+                formControlName="cidadeNome"
+                [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+            
+                <ng-template #itemTemplateCidade let-item>
+                  <a [innerHTML]="item.nome"></a>
+                </ng-template>
+            
+                <ng-template #notFoundTemplateCidade let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>    
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Observacao</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="observacao" formControlName="observacao"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <div class="form-control form-check form-switch" id="divFornecedor">
+                  <input class="form-check-input" formControlName="fornecedor" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="fornecedor">Fornecedor</label>
                 </div>
               </div>
-            </div>    
-        </div>
-    </div>
-    <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
-      <strong>Erro no servidor: </strong>
-      <ul>
-        <li *ngFor="let error of serverErrorMessages">{{error}}</li>
-      </ul>
-    </div>
-    <button type="submit" [disabled]="submittingForm || resourceForm.invalid" 
-    class="btn btn-primary btn-lg float-end mt-3">Salvar</button>
-  </form>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor: </strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
+  </div>
+  <button type="submit" [disabled]="submittingForm || resourceForm.invalid" 
+  class="btn btn-primary btn-lg float-end mt-3">Salvar</button>
+</form>

@@ -12,6 +12,7 @@ export abstract class BaseResourceViewComponent<T extends BaseResourceModel> imp
 
   resourceForm: FormGroup;
   pageTitle: string = "Visualizar";
+  serverErrorMessages: string[] = null;
   myControl = new FormControl();
   protected route: ActivatedRoute;
   protected router: Router;

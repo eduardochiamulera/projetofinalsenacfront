@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
-import { Pais } from 'src/app/shared/models/domain/pais-resource.model';
+import { Banco } from 'src/app/shared/models/domain/banco-resource.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 import { ContaBancaria } from '../shared/contabancaria.model';
 import { ContaBancariaService } from '../shared/contabancaria.service';
@@ -13,9 +13,22 @@ import { ContaBancariaService } from '../shared/contabancaria.service';
 })
 
 export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaBancaria> {
-  
+  keyword = 'nome';
+  bancos : Banco[] = [];
   private utilService : UtilService;
-  paises: Pais[] = [];
+
+  protected afterLoad(): void {
+  }
+
+  ngOnInit(){
+    debugger;
+    this.utilService.getBancos().subscribe(
+      resources => this.bancos = resources,
+      error => alert("Erro ao carregar a lista de bancos")
+     );
+     super.ngOnInit();
+  }
+  
 
   constructor(
     protected clienteService: ContaBancariaService, protected injector: Injector) {
@@ -23,6 +36,19 @@ export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaB
       this.utilService = new UtilService(injector);
     }
     
+    optionSelect(event){  
+      debugger;   
+      if(event){
+        this.resourceForm.patchValue({
+          bancoId : event.id
+        });
+      }else{
+       this.resourceForm.patchValue({
+        bancoId : null
+       });
+      }
+    }
+
     protected buildResourceForm(): void {
       this.resourceForm = this.formBuilder.group({
         id: [null],
@@ -32,12 +58,9 @@ export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaB
         conta: [null, [Validators.required, Validators.minLength(4)]], 
         digitoConta: [null, [Validators.required, Validators.maxLength(1)]],
         valorInicial: [null],
+        bancoNome: [null, [Validators.required]],
+        bancoId: [null, [Validators.required]]
       })
     }
-    protected afterLoad(): void {      
-      this.utilService.getPaises().subscribe(
-        resources => this.paises = resources,
-        error => alert("Erro ao carregar a lista de estados")
-       );
-    }
+    
 }

@@ -6,4 +6,8 @@ export class Banco extends BaseResourceModel{
             ){
         super()
     }
+
+    static fromJson(jsonData: any) : Banco{
+        return Object.assign(new Banco(), jsonData);
+    }
 }

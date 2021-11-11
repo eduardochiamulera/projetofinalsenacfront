@@ -52,6 +52,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   update(resource: T): Observable<T>{
+    debugger;
     const url = `${this.apiPath}/${resource.id}`;
     return this.http.put(url, resource, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',

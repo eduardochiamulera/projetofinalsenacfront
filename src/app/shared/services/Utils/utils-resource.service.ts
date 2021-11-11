@@ -5,6 +5,7 @@ import { Pais } from "../../models/domain/pais-resource.model";
 import { Injector } from "@angular/core";
 import { Estado } from "../../models/domain/estado-resource.model";
 import { Cidade } from "../../models/domain/cidade-resource.model";
+import { Banco } from "../../models/domain/banco-resource.model";
 
 export class UtilService{
 
@@ -12,6 +13,17 @@ export class UtilService{
     
     constructor(protected injector: Injector){
         this.http = injector.get(HttpClient);
+    }
+
+    public getBancos(): Observable<Banco[]> {
+        const bancos = this.http.get("https://localhost:44385/api/banco", { headers : 
+            { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
+              'AppUser' : 'eduardofraga1994@gmail.com'
+            }}).pipe(
+              map(this.jsonDataToBancos),
+              catchError(this.handleError)
+          )
+          return bancos;
     }
     
     public getPaises(): Observable<Pais[]> {
@@ -50,6 +62,12 @@ export class UtilService{
     private handleError(error : any) : Observable<any>{
         console.log("ERRO NA REQUISIÇÃO => ",error);
         return throwError(error);
+    }
+
+    private jsonDataToBancos(jsonData: any[]) : Banco[]{
+        const bancos: Banco[] = [];
+        jsonData.forEach(banco => bancos.push(Banco.fromJson(banco)));
+        return bancos;
     }
 
     private jsonDataToPaises(jsonData: any[]) : Pais[]{

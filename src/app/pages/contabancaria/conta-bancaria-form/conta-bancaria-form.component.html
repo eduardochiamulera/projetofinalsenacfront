@@ -24,7 +24,7 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <label for="nomeConta">Nome da conta</label>
                         <input type="text" class="form-control" id="nomeConta" formControlName="nomeConta">
                         <div class="text-danger" *ngIf="resourceForm.get('nomeConta').invalid && resourceForm.get('nomeConta').touched">
@@ -41,13 +41,56 @@
                             <div *ngIf="resourceForm.get('agencia').errors.pattern">digite somente números</div>
                           </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label for="digitoAgencia">Digito Agencia</label>
                         <input type="text" class="form-control" id="digitoAgencia" formControlName="digitoAgencia">
                         <div class="text-danger" *ngIf="resourceForm.get('digitoAgencia').invalid && resourceForm.get('digitoAgencia').touched">
                             <div *ngIf="resourceForm.get('digitoAgencia').errors.required">dado obrigatório</div>
-                            <div *ngIf="resourceForm.get('digitoAgencia').errors.minlength">deve ter no máximo 1 caracter</div>
+                            <div *ngIf="resourceForm.get('digitoAgencia').errors.maxlength">deve ter no máximo 1 digito</div>
                           </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group row">
+                        <div class="col-sm-4">
+                          <label for="conta">Número Conta</label>
+                          <input type="text" class="form-control" id="conta" formControlName="conta">
+                          <div class="text-danger" *ngIf="resourceForm.get('conta').invalid && resourceForm.get('conta').touched">
+                              <div *ngIf="resourceForm.get('conta').errors.required">dado obrigatório</div>
+                              <div *ngIf="resourceForm.get('conta').errors.minlength">deve ter no minimo 4 digitos</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                          <label for="digitoConta">Dígito Conta</label>
+                          <input type="text" class="form-control" id="conta" formControlName="digitoConta">
+                          <div class="text-danger" *ngIf="resourceForm.get('digitoConta').invalid && resourceForm.get('digitoConta').touched">
+                              <div *ngIf="resourceForm.get('digitoConta').errors.required">dado obrigatório</div>
+                              <div *ngIf="resourceForm.get('digitoConta').errors.maxlength">deve ter no máximo 1 digito</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="banco">Banco</label>
+                          <ng-autocomplete
+                            class="form-control"
+                            [data]="bancos"
+                            [searchKeyword]="keyword"
+                            placeholder="Digite o nome do Banco"
+                            historyIdentifier="bancos"
+                            [itemTemplate]="itemTemplate"
+                            (selected)="optionSelect($event)"
+                            (inputCleared)="optionSelect($event)"
+                            formControlName="bancoNome"
+                            [notFoundTemplate]="notFoundTemplate">
+                          </ng-autocomplete>
+                      
+                          <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.nome"></a>
+                          </ng-template>
+                      
+                          <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                          </ng-template>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>    

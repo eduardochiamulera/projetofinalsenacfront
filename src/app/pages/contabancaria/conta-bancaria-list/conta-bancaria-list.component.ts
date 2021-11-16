@@ -8,7 +8,7 @@ import { ContaBancariaService } from '../shared/contabancaria.service';
   templateUrl: './conta-bancaria-list.component.html',
   styleUrls: ['./conta-bancaria-list.component.css']
 })
-export class ContaBancariaListComponent  extends BaseResourceListComponent<ContaBancaria>{
+export class ContaBancariaListComponent extends BaseResourceListComponent<ContaBancaria>{
 
   constructor(private contaBancariaService: ContaBancariaService) {
     super(contaBancariaService);

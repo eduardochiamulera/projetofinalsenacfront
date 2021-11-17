@@ -30,7 +30,7 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
    ngOnInit(){
      this.utilService.getPaises().subscribe(
       resources => this.paises = resources,
-      error => alert("Erro ao carregar a lista de paises")
+      error => this.errorOnLoadList("Erro ao carregar a lista de paises")
      );
 
      return super.ngOnInit();
@@ -44,7 +44,7 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
        });
        this.utilService.getEstados(event.id).subscribe(
         resources => this.estados = resources,
-        error => alert("Erro ao carregar a lista de estados")
+        error => this.errorOnLoadList("Erro ao carregar a lista de estados")
        );
      }else{
       this.resourceForm.patchValue({
@@ -63,7 +63,7 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
        });
        this.utilService.getCidades(event.id).subscribe(
          resources => this.cidades = resources,
-         error => alert("Erro ao carregar a lista de estados")
+         error => this.errorOnLoadList("Erro ao carregar a lista de estados")
         ); 
      }else{
       this.resourceForm.patchValue({
@@ -121,14 +121,14 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
     if(this.resource.estadoId){
       this.utilService.getEstados(this.resource.paisId).subscribe(
         resources => this.estados = resources,
-        error => alert("Erro ao carregar a lista de estados")
+        error => this.errorOnLoadList("Erro ao carregar a lista de estados")
        );
      }
 
      if(this.resource.cidadeId){
       this.utilService.getCidades(this.resource.estadoId).subscribe(
         resources => this.cidades = resources,
-        error => alert("Erro ao carregar a lista de estados")
+        error => this.errorOnLoadList("Erro ao carregar a lista de estados")
        );
      }
   }

@@ -11,6 +11,7 @@ import toastr from "toastr";
 @Injectable()
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
+  keyword = 'nome';
   currentAction: string;
   resourceForm: FormGroup;
   pageTitle: string;
@@ -33,7 +34,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   ngOnInit(): void {
-    debugger;
     this.setCurrentAction();
     this.LoadResource();
     this.buildResourceForm();
@@ -63,7 +63,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
           this.resourceForm.patchValue(resource); //bind loaded resource data to resourceForm
           this.afterLoad();
         },
-        (error) => alert("Ocorreu um erro no servidor")
+        (error) => this.errorOnLoadList("Ocorreu um erro no servidor")
       )
       this.resourceService.getById
     }
@@ -118,13 +118,16 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected actionsForError(error){
     toastr.error("Ocorreu um erro ao processar sua solicitação!");
     this.submittingForm = false;
-    debugger;
     if(error.status === 422)
       this.serverErrorMessages = JSON.parse(error._body).errors;
     else if(error.status === 500)
       this.serverErrorMessages = JSON.parse(error.error);
     else
       this.serverErrorMessages = ["Falha na comunicação com o servidor. Por Favor tente novamente"]
+  }
+
+  protected errorOnLoadList(message){
+    toastr.error(message);
   }
 
   protected abstract buildResourceForm(): void;

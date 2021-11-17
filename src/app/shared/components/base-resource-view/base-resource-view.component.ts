@@ -6,6 +6,7 @@ import { switchMap } from "rxjs/operators";
 import { BaseResourceModel } from "../../models/base/base-resource.model";
 import { BaseResourceService } from "../../services/base-resource.service";
 
+import toastr from "toastr";
 
 @Injectable()
 export abstract class BaseResourceViewComponent<T extends BaseResourceModel> implements OnInit {
@@ -44,9 +45,13 @@ export abstract class BaseResourceViewComponent<T extends BaseResourceModel> imp
           this.resource = resource
           this.resourceForm.patchValue(resource); //bind loaded resource data to resourceForm
         },
-        (error) => alert("Ocorreu um erro no servidor")
+        (error) => this.errorOnLoadList("Ocorreu um erro no servidor")
       )
       this.resourceService.getById
+  }
+
+  protected errorOnLoadList(message){
+    toastr.error(message);
   }
 
   protected abstract buildResourceForm(): void;

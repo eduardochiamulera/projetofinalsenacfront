@@ -24,7 +24,7 @@ export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaB
     debugger;
     this.utilService.getBancos().subscribe(
       resources => this.bancos = resources,
-      error => alert("Erro ao carregar a lista de bancos")
+      error => this.errorOnLoadList("Erro ao carregar a lista de bancos")
      );
      super.ngOnInit();
   }

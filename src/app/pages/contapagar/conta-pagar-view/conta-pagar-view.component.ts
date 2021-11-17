@@ -14,23 +14,26 @@ export class ContaPagarViewComponent extends BaseResourceViewComponent<ContaFina
   constructor(protected contaPagarService: ContaPagarService, protected injector: Injector) {
     super(injector, new ContaFinanceira(), contaPagarService, ContaFinanceira.fromJson)
   }
-
-  //valorPrevisto valorPago pessoaId dataEmissao dataVencimento
-  // descricao observacao formaPagamentoId statusContaBancaria
-  // repetir tipoPeriodicidade numeroRepeticoes descricaoParcela saldo numero
-  // categoriaNome condicaoParcelamentoNome pessoaNome formaPagamentoNome
   
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
-      nomeConta: [null],
-      agencia: [null],
-      digitoAgencia: [null ],
-      conta: [null], 
-      digitoConta: [null],
-      valorInicial: [null],
-      bancoNome: [null],
-      bancoId: [null]
+      valorPrevisto: [null],
+      valorPago: [null],
+      dataEmissao: [null ],
+      dataVencimento: [null], 
+      descricao: [null],
+      observacao: [null],
+      repetir: [null],
+      tipoPeriodicidade: [null],
+      numeroRepeticoes: [null],
+      descricaoParcela: [null],
+      saldo: [null],
+      numero: [null],
+      categoriaNome: [null],
+      condicaoParcelamentoNome: [null],
+      pessoaNome: [null],
+      formaPagamentoNome: [null]
     });
   }
 }

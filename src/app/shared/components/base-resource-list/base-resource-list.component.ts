@@ -19,7 +19,7 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel> imp
   getAll(){
     this.baseResourceService.getAll().subscribe(
         resources => this.resources = resources,
-      error => alert("Erro ao carregar a lista")
+      error => this.errorOnLoadList("Erro ao carregar a lista")
     )
   }
 
@@ -40,6 +40,10 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel> imp
 
   protected actionsForError(error){
     toastr.error("Ocorreu um erro ao processar sua solicitação!");
+  }
+
+  protected errorOnLoadList(message){
+    toastr.error(message);
   }
 
 }

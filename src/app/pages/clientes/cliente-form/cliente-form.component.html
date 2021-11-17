@@ -139,12 +139,12 @@
                 [searchKeyword]="keyword"
                 placeholder="Digite o nome da Cidade"
                 historyIdentifier="cidades"
-                [itemTemplate]="itemTemplate"                  
+                [itemTemplate]="itemTemplateCidade"                  
                 (selected)="optionSelectCidade($event)"
                 (inputCleared)="optionSelectCidade($event)"
                 [disabled]= "cidades.length ==0"
                 formControlName="cidadeNome"
-                [notFoundTemplate]="notFoundTemplate">
+                [notFoundTemplate]="notFoundTemplateCidade">
                 </ng-autocomplete>
             
                 <ng-template #itemTemplateCidade let-item>

@@ -15,6 +15,8 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
 
   fornecedorService: FornecedorService;
   fornecedores: Pessoa[] = [];
+  formasPagamento: Pessoa[] = [];
+  condicoesParcelamento: Pessoa[] = [];
 
   constructor(
     protected contaPagarService: ContaPagarService, protected injector: Injector) {

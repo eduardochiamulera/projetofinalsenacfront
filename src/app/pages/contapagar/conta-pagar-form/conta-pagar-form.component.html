@@ -40,65 +40,125 @@
                       [searchKeyword]="keyword"
                       placeholder="Digite o nome do Fornecedor"
                       historyIdentifier="fornecedores"
-                      [itemTemplate]="itemTemplate"                  
+                      [itemTemplate]="itemTemplateFornecedor"                  
                       (selected)="optionSelect($event, 'fornecedor')"
                       (inputCleared)="optionSelect($event, 'fornecedor')"
                       formControlName="pessoaNome"
-                      [notFoundTemplate]="notFoundTemplate"
+                      [notFoundTemplate]="notFoundTemplateFornecedor"
                       id="pessoaNome">
                       
                       </ng-autocomplete>
                   
-                      <ng-template #itemTemplate let-item>
+                      <ng-template #itemTemplateFornecedor let-item>
                         <a [innerHTML]="item.nome"></a>
                       </ng-template>
                   
-                      <ng-template #notFoundTemplate let-notFound>
+                      <ng-template #notFoundTemplateFornecedor let-notFound>
                         <div [innerHTML]="notFound"></div>
                       </ng-template>
                       <div class="text-danger" *ngIf="resourceForm.get('pessoaNome').invalid && resourceForm.get('pessoaNome').touched">
                         <div *ngIf="resourceForm.get('pessoaNome').errors.required">dado obrigatório</div>
                       </div>
                     </div>
-                    <div class="form-row">
-                      <div class="form-group row">
-                        <div class="col-sm-4">
-                          <label for="dataEmissao">Data de Emissão</label>
-                          <input type="date" class="form-control" id="dataEmissao" formControlName="dataEmissao">
-                          <div class="text-danger" *ngIf="resourceForm.get('dataEmissao').invalid && resourceForm.get('dataEmissao').touched">
-                               <div *ngIf="resourceForm.get('dataEmissao').errors.required">dado obrigatório</div>
-                          </div>
-                        </div>
-                        <!-- <div class="col-sm-2">
-                          <label for="digitoConta">Dígito Conta</label>
-                          <input type="text" class="form-control" id="conta" formControlName="digitoConta">
-                          <div class="text-danger" *ngIf="resourceForm.get('digitoConta').invalid && resourceForm.get('digitoConta').touched">
-                              <div *ngIf="resourceForm.get('digitoConta').errors.required">dado obrigatório</div>
-                              <div *ngIf="resourceForm.get('digitoConta').errors.maxlength">deve ter no máximo 1 digito</div>
-                        </div> -->
-                        <!-- <div class="col-sm-6">
-                          <label for="banco">Banco</label>
-                          <ng-autocomplete
-                            class="form-control"
-                            placeholder="Digite o nome do Banco"
-                            historyIdentifier="bancos"
-                            [itemTemplate]="itemTemplate"
-                            formControlName="bancoNome"
-                            [notFoundTemplate]="notFoundTemplate">
-                          </ng-autocomplete>
-                      
-                          <ng-template #itemTemplate let-item>
-                            <a [innerHTML]="item.nome"></a>
-                          </ng-template>
-                      
-                          <ng-template #notFoundTemplate let-notFound>
-                            <div [innerHTML]="notFound"></div>
-                          </ng-template>
-                        </div> -->
-                      </div>
-                    </div>
                 </div>
-            </div>    
+            </div> 
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  <label for="dataEmissao">Data de Emissão</label>
+                  <input type="date" class="form-control" id="dataEmissao" formControlName="dataEmissao">
+                  <div class="text-danger" *ngIf="resourceForm.get('dataEmissao').invalid && resourceForm.get('dataEmissao').touched">
+                       <div *ngIf="resourceForm.get('dataEmissao').errors.required">dado obrigatório</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="dataVencimento">Data de Vencimento</label>
+                  <input type="date" class="form-control" id="dataVencimento" formControlName="dataVencimento">
+                  <div class="text-danger" *ngIf="resourceForm.get('dataVencimento').invalid && resourceForm.get('dataVencimento').touched">
+                       <div *ngIf="resourceForm.get('dataVencimento').errors.required">dado obrigatório</div>
+                  </div>
+                </div>
+                <!-- <div class="col-sm-6">
+                  <label for="banco">Banco</label>
+                  <ng-autocomplete
+                    class="form-control"
+                    placeholder="Digite o nome do Banco"
+                    historyIdentifier="bancos"
+                    [itemTemplate]="itemTemplate"
+                    formControlName="bancoNome"
+                    [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+              
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nome"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div> -->
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                  <div class="col-sm-4">
+                    <label for="formaPagamentoNome">Forma Pagamento</label>
+                    <ng-autocomplete
+                    class="form-control"
+                    [data]="formasPagamento"
+                    [searchKeyword]="keyword"
+                    placeholder="Digite o nome da Forma de Pagamento"
+                    historyIdentifier="formasPagamento"
+                    [itemTemplate]="itemTemplatePagamento"                  
+                    (selected)="optionSelect($event, 'fornecedor')"
+                    (inputCleared)="optionSelect($event, 'fornecedor')"
+                    formControlName="formaPagamentoNome"
+                    [notFoundTemplate]="notFoundTemplatePagamento"
+                    id="pessoaNome">
+                    
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplatePagamento let-item>
+                      <a [innerHTML]="item.nome"></a>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplatePagamento let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">
+                      <div *ngIf="resourceForm.get('formaPagamentoNome').errors.required">dado obrigatório</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="condicaoParcelamentoNome">Condição de Parcelamento</label>
+                    <ng-autocomplete
+                    class="form-control"
+                    [data]="condicoesParcelamento"
+                    [searchKeyword]="keyword"
+                    placeholder="Digite o nome da Forma de Pagamento"
+                    historyIdentifier="formasPagamento"
+                    [itemTemplate]="itemTemplatePagamento"                  
+                    (selected)="optionSelect($event, 'fornecedor')"
+                    (inputCleared)="optionSelect($event, 'fornecedor')"
+                    formControlName="formaPagamentoNome"
+                    [notFoundTemplate]="notFoundTemplatePagamento"
+                    id="pessoaNome">
+                    
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplatePagamento let-item>
+                      <a [innerHTML]="item.nome"></a>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplatePagamento let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">
+                      <div *ngIf="resourceForm.get('formaPagamentoNome').errors.required">dado obrigatório</div>
+                    </div>
+                  </div>
+              </div>
+            </div>   
         </div>
     </div>
     <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">

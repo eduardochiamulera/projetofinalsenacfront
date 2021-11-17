@@ -17,6 +17,8 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
   fornecedores: Pessoa[] = [];
   formasPagamento: Pessoa[] = [];
   condicoesParcelamento: Pessoa[] = [];
+  categorias: Pessoa[] = [];
+  statusClass = "not-active";
 
   constructor(
     protected contaPagarService: ContaPagarService, protected injector: Injector) {
@@ -34,6 +36,15 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
       )
       super.ngOnInit();
   }
+
+  showFormRepetir(value){
+    if(value === true){
+      this.statusClass = "active";
+    }else{
+      this.statusClass = "not-active";
+    }
+  }
+
 
   optionSelect(event, caller){    
     

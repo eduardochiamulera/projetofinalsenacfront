@@ -23,6 +23,7 @@ export class ContaFinanceira extends BaseResourceModel{
         public condicaoParcelamentoNome?: string,
         public pessoaNome?: string,
         public formaPagamentoNome?: string,
+        public tipoContaFinanceira?: string,
     ){ super() }
 
     static fromJson(jsonData: any): ContaFinanceira{

@@ -21,6 +21,7 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
   }
 
   create(contaPagar: ContaFinanceira): Observable<ContaFinanceira>{
+    contaPagar.pessoaNome = null;
     return super.create(contaPagar);
   }
 

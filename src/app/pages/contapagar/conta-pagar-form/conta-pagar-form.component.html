@@ -23,6 +23,8 @@
         </div>
         <div class="card-body">
             <div class="form-row">
+              <input type="hidden" formControlName="statusContaBancaria" [ngModel]="0">
+              <input type="hidden" formControlName="tipoContaFinanceira" [ngModel]="0">
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="descricao">Descrição</label>
@@ -85,13 +87,13 @@
                   [data]="condicoesParcelamento"
                   [searchKeyword]="keyword"
                   placeholder="Digite o nome da Forma de Pagamento"
-                  historyIdentifier="formasPagamento"
+                  historyIdentifier="condicoesParcelamento"
                   [itemTemplate]="itemTemplatePagamento"                  
-                  (selected)="optionSelect($event, 'fornecedor')"
-                  (inputCleared)="optionSelect($event, 'fornecedor')"
-                  formControlName="formaPagamentoNome"
+                  (selected)="optionSelect($event, 'condicaoParcelamento')"
+                  (inputCleared)="optionSelect($event, 'condicaoParcelamento')"
+                  formControlName="condicaoParcelamentoNome"
                   [notFoundTemplate]="notFoundTemplatePagamento"
-                  id="pessoaNome">
+                  id="condicaoParcelamentoNome">
                   
                   </ng-autocomplete>
               
@@ -108,7 +110,7 @@
                 </div>
                 <div class="col-sm-2">
                   <label for="dataVencimento">Data de Vencimento</label>
-                  <input type="date" class="form-control" id="dataVencimento" formControlName="dataVencimento">
+                  <input type="date" class="form-control" disabled="disabled" id="dataVencimento" formControlName="dataVencimento">
                   <div class="text-danger" *ngIf="resourceForm.get('dataVencimento').invalid && resourceForm.get('dataVencimento').touched">
                        <div *ngIf="resourceForm.get('dataVencimento').errors.required">dado obrigatório</div>
                   </div>
@@ -125,20 +127,20 @@
                     [searchKeyword]="keyword"
                     placeholder="Digite o nome da Forma de Pagamento"
                     historyIdentifier="formasPagamento"
-                    [itemTemplate]="itemTemplatePagamento"                  
-                    (selected)="optionSelect($event, 'fornecedor')"
-                    (inputCleared)="optionSelect($event, 'fornecedor')"
+                    [itemTemplate]="itemTemplateFormaPagamento"                  
+                    (selected)="optionSelect($event, 'formaPagamento')"
+                    (inputCleared)="optionSelect($event, 'formaPagamento')"
                     formControlName="formaPagamentoNome"
-                    [notFoundTemplate]="notFoundTemplatePagamento"
-                    id="pessoaNome">
+                    [notFoundTemplate]="notFoundTemplateFormaPagamento"
+                    id="formaPagamentoNome">
                     
                     </ng-autocomplete>
                 
-                    <ng-template #itemTemplatePagamento let-item>
+                    <ng-template #itemTemplateFormaPagamento let-item>
                       <a [innerHTML]="item.nome"></a>
                     </ng-template>
                 
-                    <ng-template #notFoundTemplatePagamento let-notFound>
+                    <ng-template #notFoundTemplateFormaPagamento let-notFound>
                       <div [innerHTML]="notFound"></div>
                     </ng-template>
                     <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">

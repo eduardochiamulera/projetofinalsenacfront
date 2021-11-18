@@ -107,6 +107,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForSuccess(resource: T){
+    debugger;
     toastr.success("Solicitação processada com sucesso");
     const baseComponentpath: string = this.route.snapshot.parent.url[0].path;
 

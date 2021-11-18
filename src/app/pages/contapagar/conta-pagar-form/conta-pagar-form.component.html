@@ -11,7 +11,7 @@
       <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
     </div>
     <div class="col-md">
-      <a routerLink="/contabancaria" class="btn btn-light float-end">Voltar</a>
+      <a routerLink="/contapagar" class="btn btn-light float-end">Voltar</a>
     </div>
   </div>
 
@@ -23,6 +23,7 @@
         </div>
         <div class="card-body">
             <div class="form-row">
+              <input type="hidden" formControlName="id">
               <input type="hidden" formControlName="statusContaBancaria" [ngModel]="0">
               <input type="hidden" formControlName="tipoContaFinanceira" [ngModel]="0">
                 <div class="form-group row">
@@ -85,7 +86,7 @@
                   <ng-autocomplete
                   class="form-control"
                   [data]="condicoesParcelamento"
-                  [searchKeyword]="keyword"
+                  [searchKeyword]="keywordTitle"
                   placeholder="Digite o nome da Forma de Pagamento"
                   historyIdentifier="condicoesParcelamento"
                   [itemTemplate]="itemTemplatePagamento"                  
@@ -98,14 +99,14 @@
                   </ng-autocomplete>
               
                   <ng-template #itemTemplatePagamento let-item>
-                    <a [innerHTML]="item.nome"></a>
+                    <a [innerHTML]="item.descricao"></a>
                   </ng-template>
               
                   <ng-template #notFoundTemplatePagamento let-notFound>
                     <div [innerHTML]="notFound"></div>
                   </ng-template>
-                  <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">
-                    <div *ngIf="resourceForm.get('formaPagamentoNome').errors.required">dado obrigatório</div>
+                  <div class="text-danger" *ngIf="resourceForm.get('condicaoParcelamentoNome').invalid && resourceForm.get('condicaoParcelamentoNome').touched">
+                    <div *ngIf="resourceForm.get('condicaoParcelamentoNome').errors.required">dado obrigatório</div>
                   </div>
                 </div>
                 <div class="col-sm-2">
@@ -124,7 +125,7 @@
                     <ng-autocomplete
                     class="form-control"
                     [data]="formasPagamento"
-                    [searchKeyword]="keyword"
+                    [searchKeyword]="keywordTitle"
                     placeholder="Digite o nome da Forma de Pagamento"
                     historyIdentifier="formasPagamento"
                     [itemTemplate]="itemTemplateFormaPagamento"                  
@@ -137,7 +138,7 @@
                     </ng-autocomplete>
                 
                     <ng-template #itemTemplateFormaPagamento let-item>
-                      <a [innerHTML]="item.nome"></a>
+                      <a [innerHTML]="item.descricao"></a>
                     </ng-template>
                 
                     <ng-template #notFoundTemplateFormaPagamento let-notFound>
@@ -152,7 +153,7 @@
                     <ng-autocomplete
                     class="form-control"
                     [data]="categorias"
-                    [searchKeyword]="keyword"
+                    [searchKeyword]="keywordTitle"
                     placeholder="Digite o nome da Categoria Financeira"
                     historyIdentifier="categorias"
                     [itemTemplate]="itemTemplateCategoria"                  
@@ -165,7 +166,7 @@
                     </ng-autocomplete>
                 
                     <ng-template #itemTemplateCategoria let-item>
-                      <a [innerHTML]="item.nome"></a>
+                      <a [innerHTML]="item.descricao"></a>
                     </ng-template>
                 
                     <ng-template #notFoundTemplateCategoria let-notFound>
@@ -188,7 +189,7 @@
             <div class="form-row">
               <div class="form-group row">
                 <div class="col-sm-4">
-                  <div class="form-control form-check form-switch" id="divRepetir">
+                  <div class="form-control form-check form-switch" id="divRepetir" [ngClass]="statusClassCheck">
                     <input #value class="form-check-input" (click)="showFormRepetir(value.checked)" formControlName="repetir" type="checkbox" id="flexSwitchCheckDefault">
                     <label class="form-check-label" for="repetir">Repetir</label>
                   </div>
@@ -196,7 +197,7 @@
                 <div class="col-sm-4" id="divTipoPeridiciodade" [ngClass]="statusClass">
                   <!-- select -->
                   <label class="form-check-label" for="tipoPeriodicidade">Periodicidade</label>
-                  <select class="form-select" id="tipoPeriodicidade" aria-label="Default select example">
+                  <select class="form-select" id="tipoPeriodicidade" formControlName="tipoPeriodicidade" aria-label="Default select example">
                     <option>Selecione</option>
                     <option value="1">Semanal</option>
                     <option value="2">Mensal</option>

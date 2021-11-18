@@ -25,7 +25,7 @@
         <!--  -->
       <tr *ngFor="let conta of resources | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
         <td>
-          <strong>{{conta.descricao}}</strong><br>
+          <strong>{{conta.descricao + " " + conta.descricaoParcela}}</strong><br>
         </td>
         <td>
           <a [routerLink]="[conta.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>

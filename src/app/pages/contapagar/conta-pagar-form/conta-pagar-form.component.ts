@@ -16,10 +16,12 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
 
   fornecedorService: FornecedorService;
   utilService: UtilService;
+  keywordTitle="descricao"
   fornecedores: Pessoa[] = [];
   formasPagamento: any[] = [];
   condicoesParcelamento: any[] = [];
   categorias: any[] = [];
+  statusClassCheck = "active";
   statusClass = "not-active";
 
   constructor(
@@ -30,6 +32,7 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
     }
 
   protected afterLoad(): void {
+   this.showCheckRepetir(); 
   }
 
   ngOnInit(){
@@ -37,7 +40,7 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
         resources => this.fornecedores = resources,
         error => this.errorOnLoadList("Erro ao carregar a lista de fornecedores")
       )
-      this.utilService.getCategorias().subscribe(
+      this.utilService.getCategorias('Despesa').subscribe(
         resources => this.categorias = resources,
         error => this.errorOnLoadList("Erro ao carregar a lista de categorias")
       )
@@ -49,6 +52,7 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
         resources => this.formasPagamento = resources,
         error => this.errorOnLoadList("Erro ao carregar a lista de formas de pagamento")
       )
+      this.showCheckRepetir();
       super.ngOnInit();
   }
 
@@ -60,27 +64,44 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
     }
   }
 
+  showCheckRepetir(){
+    if(this.currentAction == "edit") this.statusClassCheck = "not-active";
+  }
 
   optionSelect(event, caller){    
     switch(caller){
       case 'fornecedor':
         this.resourceForm.patchValue({pessoaId : event ? event.id : null });
+        break;
       case 'formaPagamento':
         this.resourceForm.patchValue({formaPagamentoId : event ? event.id : null });
+        break;
+      case 'categoria':
+        this.resourceForm.patchValue({categoriaId : event ? event.id : null });
+        break;
+      case 'condicaoParcelamento':
+        debugger;
+        this.resourceForm.patchValue({condicaoParcelamentoId : event ? event.id : null });
+        this.calulaDataValidade(this.resourceForm.value.condicaoParcelamentoId, 
+          this.resourceForm.value.dataEmissao, this.resourceForm.value.valorPrevisto);
+        break;
     }
-
-    
-    // if(event){
-    //   this.resourceForm.patchValue({
-    //     paisId : event.id
-    //   });
-    // }else{
-    //  this.resourceForm.patchValue({
-    //    paisId : null
-    //  });
-    // }
   }
 
+  private calulaDataValidade(condicaoParcelamentoId, dataEmissao, valor){
+    if(condicaoParcelamentoId && dataEmissao && valor){
+      debugger;
+      this.contaPagarService.getDataVencimento(condicaoParcelamentoId, dataEmissao, valor).subscribe(
+        resource => this.bindData(resource),
+        error => this.errorOnLoadList("Erro ao calcular data de vencimento")
+      )
+    }
+  }
+ 
+  private bindData(resource){
+    this.resourceForm.patchValue({dataVencimento : resource[0].dataVencimento });
+    this.resourceForm.patchValue({observacao : `${this.resourceForm.value.observacao ? this.resourceForm.value.observacao + ' - Parcela: ' : "Parcela: "}${resource[0].descricao}` });
+  }
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
@@ -97,6 +118,9 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
       numeroRepeticoes: [null],
       descricaoParcela: [null],
       pessoaId: [null],
+      formaPagamentoId: [null],
+      categoriaId: [null],
+      condicaoParcelamentoId: [null],
       saldo: [null],
       numero: [null],
       categoriaNome: [null, [Validators.required]],

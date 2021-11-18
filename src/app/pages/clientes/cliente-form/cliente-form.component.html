@@ -26,6 +26,7 @@
               <div class="form-group row">
                   <div class="col-sm-6">
                     <input type="hidden" formControlName="cliente" [ngModel]="true">
+                    <input type="hidden" formControlName="id">
                       <label for="nome">Nome</label>
                       <input type="text" class="form-control" id="nome" formControlName="nome">
                       <div class="text-danger" *ngIf="resourceForm.get('nome').invalid && resourceForm.get('nome').touched">

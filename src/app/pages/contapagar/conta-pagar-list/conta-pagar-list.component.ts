@@ -12,7 +12,7 @@ import { ContaPagarService } from '../shared/conta-pagar.service';
 export class ContaPagarListComponent extends BaseResourceListComponent<ContaFinanceira>{
 
   @ViewChild('modal') private modal: ModalComponent
-  
+
   constructor(private contapagarService: ContaPagarService) {
     super(contapagarService);
    }

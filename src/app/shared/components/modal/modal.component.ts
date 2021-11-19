@@ -1,5 +1,5 @@
 import { Component, Injectable, Injector, Input, OnInit, TemplateRef, ViewChild } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 import { ContaBancaria } from 'src/app/pages/contabancaria/shared/contabancaria.model';
 import { ContaFinanceira } from '../../models/platform/conta-financeira.model';
@@ -27,13 +27,14 @@ export interface ModalConfig {
 @Injectable()
 export class ModalComponent implements OnInit {
   
-  keyword: 'nomeConta'; 
   @Input() public modalConfig: ModalConfig
   @ViewChild('modal') private modalContent: TemplateRef<ModalComponent>
   private modalRef: NgbModalRef
-  resourceForm: FormGroup;
+  resourceFormModal: FormGroup;
   conta : ContaFinanceira;
   contasBancarias: ContaBancaria[] = [];
+  public keywordModal = 'nomeConta';
+  submittingForm: boolean = false;
 
   constructor(private modalService: NgbModal, 
     private formBuilder: FormBuilder,
@@ -48,20 +49,22 @@ export class ModalComponent implements OnInit {
    }
 
   private buildForm(){
-    this.resourceForm = this.formBuilder.group({
+    this.resourceFormModal = this.formBuilder.group({
       descricao: [null],
       valorPrevisto: [null],
       dataEmissao: [null],
       dataVencimento: [null],
       saldo: [null],
-      valorPago: [null]
+      valorPago: [null, [Validators.required, Validators.nullValidator]],
+      observacaoBaixa:[null],
+      contaBancariaNome:[null, [Validators.required]],
     })
   }
 
   private setForm(){
     this.conta.dataEmissao = this.conta.dataEmissao.replace("T00:00:00","");
     this.conta.dataVencimento = this.conta.dataEmissao.replace("T00:00:00","");
-    this.resourceForm.patchValue(this.conta);
+    this.resourceFormModal.patchValue(this.conta);
   }
 
   open(value : ContaFinanceira): Promise<boolean> {
@@ -71,6 +74,25 @@ export class ModalComponent implements OnInit {
       this.modalRef = this.modalService.open(this.modalContent)
       this.modalRef.result.then(resolve, resolve)
     })
+  }
+
+  submit(){
+    this.submittingForm = true;
+    console.log(this.resourceFormModal.value)
+    this.close();
+  }
+
+  fnCalculaSaldo(valorPago){
+    const valor = this.conta.saldo - valorPago;
+    if(valorPago > 0){
+      this.resourceFormModal.patchValue({
+        saldo: valor
+      })
+    }else{
+      this.resourceFormModal.patchValue({
+        saldo: this.conta.saldo
+      })
+    }
   }
 
   async close(): Promise<void> {

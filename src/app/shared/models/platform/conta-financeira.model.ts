@@ -17,7 +17,7 @@ export class ContaFinanceira extends BaseResourceModel{
         public tipoPeriodicidade?: string,
         public numeroRepeticoes?: string,
         public descricaoParcela?: string,
-        public saldo?: string,
+        public saldo?: number,
         public numero?: string,
         public categoriaNome?: string,
         public condicaoParcelamentoNome?: string,

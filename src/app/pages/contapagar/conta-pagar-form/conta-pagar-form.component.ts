@@ -129,5 +129,4 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
       formaPagamentoNome: [null, [Validators.required]]
     });
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { BaseResourceViewComponent } from 'src/app/shared/components/base-resource-view/base-resource-view.component';
 import { ContaBancaria } from '../shared/contabancaria.model';
-import { ContaBancariaService } from '../shared/contabancaria.service';
+import { ContaBancariaService } from '../../../shared/services/contabancaria.service';
 
 @Component({
   selector: 'app-conta-bancaria-view',

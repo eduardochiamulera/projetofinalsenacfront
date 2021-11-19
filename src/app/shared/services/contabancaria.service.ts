@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from "rxjs";
-import { BaseResourceService } from "../../../shared/services/base-resource.service";
-import { ContaBancaria } from './contabancaria.model';
+import { BaseResourceService } from "./base-resource.service";
+import { ContaBancaria } from '../../pages/contabancaria/shared/contabancaria.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,82 @@
+<ng-template #modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ modalConfig.modalTitle }}</h5>
+  </div>
+  <div class="modal-body" [formGroup]="resourceForm">
+    <div class="form-row">
+      <input type="hidden" id="id">
+      <input type="hidden" id="statusContaBancaria" >
+      <input type="hidden" id="tipoContaFinanceira">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label for="descricao">Descrição</label>
+                <input type="text" class="form-control" id="descricao" formControlName="descricao">
+            </div>
+        </div>
+    </div> 
+    <div class="form-row">
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="dataEmissao">Data de Emissão</label>
+          <input type="date" class="form-control" disabled="disabled" id="dataEmissao" formControlName="dataEmissao">
+        </div>
+        <div class="col-sm-6">
+          <label for="dataVencimento">Data de Vencimento</label>
+          <input type="date" class="form-control" disabled="disabled" id="dataVencimento" formControlName="dataVencimento">
+        </div>
+        <div class="col-sm-4">
+          <label for="valorPrevisto">Valor Previsto</label>
+          <input type="text" class="form-control" disabled="disabled" id="valorPrevisto" formControlName="valorPrevisto" >
+        </div>
+        <div class="col-sm-4">
+          <label for="saldo">Saldo</label>
+          <input type="text" class="form-control" disabled="disabled" id="saldo" formControlName="saldo" >
+        </div>
+        <div class="col-sm-4">
+          <label for="valorPago">valor Pago</label>
+          <input type="text" class="form-control" id="valorPago" formControlName="valorPago" >
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group row">
+          <div class="col-sm-12">
+            <label for="contaBancariaNome">ContaBancaria</label>
+            <ng-autocomplete
+                            class="form-control"
+                            [data]="contasBancarias"
+                            [searchKeyword]="keyword"
+                            placeholder="Digite o nome da conta bancaria"
+                            historyIdentifier="contasBancarias"
+                            [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                          </ng-autocomplete>
+        
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nomeConta"></a>
+            </ng-template>
+        
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-secondary"
+            (click)="dismiss()"
+            *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()"
+            [disabled]="modalConfig.disableDismissButton !== undefined && modalConfig.disableDismissButton()">
+      {{ modalConfig.dismissButtonLabel }}
+    </button>
+    <button type="button"
+            class="btn btn-outline-primary"
+            (click)="close()"
+            *ngIf="modalConfig.hideCloseButton === undefined || !modalConfig.hideCloseButton()"
+            [disabled]="modalConfig.disableCloseButton !== undefined && modalConfig.disableCloseButton()">
+      {{ modalConfig.closeButtonLabel }}
+    </button>
+  </div>
+</ng-template>

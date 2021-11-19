@@ -4,7 +4,7 @@ import { BaseResourceFormComponent } from 'src/app/shared/components/base-resour
 import { Banco } from 'src/app/shared/models/domain/banco-resource.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 import { ContaBancaria } from '../shared/contabancaria.model';
-import { ContaBancariaService } from '../shared/contabancaria.service';
+import { ContaBancariaService } from '../../../shared/services/contabancaria.service';
 
 @Component({
   selector: 'app-conta-bancaria-form',
@@ -21,7 +21,6 @@ export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaB
   }
 
   ngOnInit(){
-    debugger;
     this.utilService.getBancos().subscribe(
       resources => this.bancos = resources,
       error => this.errorOnLoadList("Erro ao carregar a lista de bancos")

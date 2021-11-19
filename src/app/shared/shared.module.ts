@@ -4,9 +4,10 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AngularMaterialModule } from "../shared/angular-material.module";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ModalComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -24,7 +25,9 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
     FormsModule,
     NgxPaginationModule,
     AutocompleteLibModule,
+    ModalComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [ModalComponent]
 })
 export class SharedModule { }

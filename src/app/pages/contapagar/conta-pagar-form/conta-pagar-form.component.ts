@@ -90,7 +90,6 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
 
   private calulaDataValidade(condicaoParcelamentoId, dataEmissao, valor){
     if(condicaoParcelamentoId && dataEmissao && valor){
-      debugger;
       this.contaPagarService.getDataVencimento(condicaoParcelamentoId, dataEmissao, valor).subscribe(
         resource => this.bindData(resource),
         error => this.errorOnLoadList("Erro ao calcular data de vencimento")

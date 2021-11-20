@@ -89,7 +89,6 @@ export class ModalComponent implements OnInit {
   }
 
   submit(){
-    debugger
     this.submittingForm = true;
     const contaFinanceiraBaixa: ContaFinanceiraBaixa = new 
     ContaFinanceiraBaixa(this.resourceFormModal.value.contaFinanceiraId,

@@ -63,7 +63,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   delete(id: Guid): Observable<any>{
-    const url = `${apiPath}/${this.path}/${id}`;
+    const url = `${apiPath}${this.path}/${id}`;
     return this.http.delete(url, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'

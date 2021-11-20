@@ -33,6 +33,16 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
     )
   }
 
+  cancelarBaixas(id){
+    return this.http.delete(apiPath + 'contafinanceirabaixa/' + id, { headers : 
+      { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
+        'AppUser' : 'eduardofraga1994@gmail.com'
+      }}).pipe(
+        map(this.jsonDataToResource.bind(this)),
+      catchError(this.handleError)
+    )
+  }
+
   protected jsonDataToResource(jsonData: any[]) : CondicaoParcelamentoParcela{
     const resource: CondicaoParcelamentoParcela = CondicaoParcelamentoParcela.fromJson(jsonData);
     return resource;

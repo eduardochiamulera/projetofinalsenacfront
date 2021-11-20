@@ -5,9 +5,11 @@ import { AngularMaterialModule } from "../shared/angular-material.module";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { ModalComponent } from './components/modal/modal.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from './components/confirm-dialog/confirm-dialog.service';
 
 @NgModule({
-  declarations: [ModalComponent],
+  declarations: [ModalComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,9 +27,11 @@ import { ModalComponent } from './components/modal/modal.component';
     FormsModule,
     NgxPaginationModule,
     AutocompleteLibModule,
-    ModalComponent
+    ModalComponent,
+    ConfirmDialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ModalComponent]
+  providers: [ConfirmDialogService],
+  entryComponents: [ModalComponent,ConfirmDialogComponent]
 })
 export class SharedModule { }

@@ -5,6 +5,7 @@ import { BaseResourceService } from "../../../shared/services/base-resource.serv
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 import { map,catchError } from "rxjs/operators";
 import { CondicaoParcelamentoParcela } from 'src/app/shared/models/domain/condicao-resource.model';
+import { apiPath } from 'src/app/shared/contants/url-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
   public utilService: UtilService;
 
   constructor(protected injector: Injector) { 
-    super("https://localhost:44385/api/contafinanceira", injector, ContaFinanceira.fromJson)
+    super("contafinanceira", injector, ContaFinanceira.fromJson)
     this.utilService = new UtilService(injector)
   }
 
@@ -23,7 +24,7 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
   }
 
   getDataVencimento(condicaoId, dataEmissao, valor): Observable<any>{
-    return this.http.get(`https://localhost:44385/api/condicaoparcelamentosimulacao?condicaoParcelamentoId=${condicaoId}&dataReferencia=${dataEmissao}&valor=${valor}`, { headers : 
+    return this.http.get(`${apiPath}/condicaoparcelamentosimulacao?condicaoParcelamentoId=${condicaoId}&dataReferencia=${dataEmissao}&valor=${valor}`, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
       }}).pipe(

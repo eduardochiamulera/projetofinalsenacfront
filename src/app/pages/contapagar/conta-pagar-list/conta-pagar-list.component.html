@@ -18,6 +18,10 @@
     <thead>
       <tr class="bg-primary text-light">
         <th>Descrição</th>
+        <th>Valor Previsto</th>
+        <th>Valor Pago</th>
+        <th>Data de Vencimento</th>
+        <th>Fornecedor</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -26,6 +30,18 @@
       <tr *ngFor="let conta of resources | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
         <td>
           <strong>{{conta.descricao + " " + conta.descricaoParcela}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.valorPrevisto}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.valorPago || 0}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.dataVencimento}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.pessoaNome}}</strong><br>
         </td>
         <td>
           <a [routerLink]="[conta.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>

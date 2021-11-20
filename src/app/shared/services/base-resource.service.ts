@@ -4,14 +4,14 @@ import { Observable, throwError } from "rxjs";
 import { map, catchError, flatMap } from "rxjs/operators";
 import { BaseResourceModel } from "../models/base/base-resource.model";
 import { Guid } from 'guid-typescript';
-import { UtilService } from './Utils/utils-resource.service';
+import { apiPath } from '../contants/url-constant';
 
 export abstract class BaseResourceService<T extends BaseResourceModel> {
  
     protected http: HttpClient;
 
   constructor(
-        protected apiPath: string, 
+        protected path: string,
         protected injector: Injector,
         protected jsonDataToResourceFn: (jsonData : any) => T
     ) { 
@@ -19,7 +19,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   getAll(url: string = ""): Observable<T[]>{
-    const fullUrl = this.apiPath + url;
+    const fullUrl = apiPath + this.path + url;
     return this.http.get(fullUrl, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
@@ -31,7 +31,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   getById(id:string): Observable<T>{
     let guid = Guid.parse(id);
-    const url = `${this.apiPath}/${guid}`;
+    const url = `${apiPath}/${this.path}/${guid}`;
     return this.http.get(url, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
@@ -42,7 +42,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   create(resource: T): Observable<T>{
-    return this.http.post(this.apiPath, resource, { headers : 
+    return this.http.post(apiPath + this.path, resource, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
       }}).pipe(
@@ -52,8 +52,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   update(resource: T): Observable<T>{
-    debugger;
-    const url = `${this.apiPath}/${resource.id}`;
+    const url = `${apiPath}/${this.path}/${resource.id}`;
     return this.http.put(url, resource, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
@@ -64,7 +63,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   delete(id: Guid): Observable<any>{
-    const url = `${this.apiPath}/${id}`;
+    const url = `${apiPath}/${this.path}/${id}`;
     return this.http.delete(url, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'

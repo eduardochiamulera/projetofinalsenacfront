@@ -9,11 +9,10 @@ import { UtilService } from 'src/app/shared/services/Utils/utils-resource.servic
 })
 export class ClienteService extends BaseResourceService<Pessoa> {
 
-  //private apiPath: string = "https://localhost:44385/api/pessoa";
   public utilService: UtilService;
 
   constructor(protected injector: Injector) { 
-    super("https://localhost:44385/api/pessoa", injector, Pessoa.fromJson)
+    super("pessoa", injector, Pessoa.fromJson)
     this.utilService = new UtilService(injector)
   }
 

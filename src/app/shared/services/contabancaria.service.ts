@@ -9,7 +9,7 @@ import { ContaBancaria } from '../../pages/contabancaria/shared/contabancaria.mo
 export class ContaBancariaService extends BaseResourceService<ContaBancaria> {
 
   constructor(protected injector: Injector) { 
-    super("https://localhost:44385/api/contabancaria", injector, ContaBancaria.fromJson)
+    super("contabancaria", injector, ContaBancaria.fromJson)
   }
 
   create(contaBancaria: ContaBancaria): Observable<ContaBancaria>{

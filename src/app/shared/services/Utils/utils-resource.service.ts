@@ -9,6 +9,7 @@ import { Banco } from "../../models/domain/banco-resource.model";
 import { CondicaoParcelamento } from "../../models/platform/condicao-parcelamento.model";
 import { CategoriaFinanceira } from "../../models/platform/categoria-financeira.model";
 import { FormaPagamento } from "../../models/platform/forma-pagamento.model";
+import { apiPath } from "../../contants/url-constant";
 
 export class UtilService{
 
@@ -19,7 +20,7 @@ export class UtilService{
     }
 
     public getFormasPagamento(): Observable<FormaPagamento[]> {
-        const condicoes = this.http.get("https://localhost:44385/api/formapagamento", { headers : 
+        const condicoes = this.http.get(`${apiPath}formapagamento`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -30,7 +31,7 @@ export class UtilService{
     }
 
     public getCondicoes(): Observable<CondicaoParcelamento[]> {
-        const condicoes = this.http.get("https://localhost:44385/api/condicaoparcelamento", { headers : 
+        const condicoes = this.http.get(`${apiPath}condicaoparcelamento`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -41,7 +42,7 @@ export class UtilService{
     }
 
     public getCategorias(tipo): Observable<CategoriaFinanceira[]> {
-        const condicoes = this.http.get(`https://localhost:44385/api/categoria/${tipo}`, { headers : 
+        const condicoes = this.http.get(`${apiPath}/categoria/${tipo}`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -53,7 +54,7 @@ export class UtilService{
     
 
     public getBancos(): Observable<Banco[]> {
-        const bancos = this.http.get("https://localhost:44385/api/banco", { headers : 
+        const bancos = this.http.get(`${apiPath}banco`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -64,7 +65,7 @@ export class UtilService{
     }
     
     public getPaises(): Observable<Pais[]> {
-        const paises = this.http.get("https://localhost:44385/api/pais", { headers : 
+        const paises = this.http.get(`${apiPath}pais`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -75,7 +76,7 @@ export class UtilService{
     }
 
     public getEstados(paisId: string): Observable<Estado[]> {
-        const estados = this.http.get(`https://localhost:44385/api/estado/${paisId}`, { headers : 
+        const estados = this.http.get(`${apiPath}estado/${paisId}`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(
@@ -86,7 +87,7 @@ export class UtilService{
     }
 
     public getCidades(estadoId: string): Observable<Estado[]> {
-        const cidades = this.http.get(`https://localhost:44385/api/cidade/${estadoId}`, { headers : 
+        const cidades = this.http.get(`${apiPath}cidade/${estadoId}`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(

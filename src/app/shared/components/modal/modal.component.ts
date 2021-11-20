@@ -5,6 +5,10 @@ import { ContaBancaria } from 'src/app/pages/contabancaria/shared/contabancaria.
 import { ContaFinanceira } from '../../models/platform/conta-financeira.model';
 import { ContaBancariaService } from '../../services/contabancaria.service';
 
+import toastr from "toastr";
+import { ModalService } from './services/modal.service';
+import { ContaFinanceiraBaixa } from '../../models/platform/conta-financeira-baixa.model';
+
 export interface ModalConfig {
   modalTitle: string
   dismissButtonLabel: string
@@ -35,10 +39,14 @@ export class ModalComponent implements OnInit {
   contasBancarias: ContaBancaria[] = [];
   public keywordModal = 'nomeConta';
   submittingForm: boolean = false;
+  private modalService: ModalService
 
-  constructor(private modalService: NgbModal, 
+  constructor(private modalNgb: NgbModal, 
     private formBuilder: FormBuilder,
-    private contaBancariaService: ContaBancariaService) { }
+    private contaBancariaService: ContaBancariaService,
+    private injector: Injector) { 
+      this.modalService = new ModalService(injector);
+    }
 
   ngOnInit(): void {
     this.buildForm()
@@ -50,12 +58,13 @@ export class ModalComponent implements OnInit {
 
   private buildForm(){
     this.resourceFormModal = this.formBuilder.group({
+      contaFinanceiraId: [null, [Validators.required]],
       descricao: [null],
       valorPrevisto: [null],
       dataEmissao: [null],
       dataVencimento: [null],
       saldo: [null],
-      valorPago: [null, [Validators.required, Validators.nullValidator]],
+      valorPagoModal: [null, [Validators.required, Validators.nullValidator]],
       observacaoBaixa:[null],
       contaBancariaNome:[null, [Validators.required]],
     })
@@ -65,29 +74,48 @@ export class ModalComponent implements OnInit {
     this.conta.dataEmissao = this.conta.dataEmissao.replace("T00:00:00","");
     this.conta.dataVencimento = this.conta.dataEmissao.replace("T00:00:00","");
     this.resourceFormModal.patchValue(this.conta);
+    this.resourceFormModal.patchValue({
+      contaFinanceiraId: this.conta.id
+    })
   }
 
   open(value : ContaFinanceira): Promise<boolean> {
     this.conta = value;
     this.setForm();
     return new Promise<boolean>(resolve => {
-      this.modalRef = this.modalService.open(this.modalContent)
+      this.modalRef = this.modalNgb.open(this.modalContent)
       this.modalRef.result.then(resolve, resolve)
     })
   }
 
   submit(){
+    debugger
     this.submittingForm = true;
-    console.log(this.resourceFormModal.value)
+    const contaFinanceiraBaixa: ContaFinanceiraBaixa = new 
+    ContaFinanceiraBaixa(this.resourceFormModal.value.contaFinanceiraId,
+      this.resourceFormModal.value.valorPagoModal,this.resourceFormModal.value.observacaoBaixa,
+      this.resourceFormModal.value.contaBancariaNome.id)
+    this.modalService.create(contaFinanceiraBaixa).subscribe(
+      (resource) => toastr.success("Solicitação processada com sucesso"),
+      (error) => toastr.error(error.message)
+    );  
     this.close();
+    window.location.reload();
   }
 
   fnCalculaSaldo(valorPago){
     const valor = this.conta.saldo - valorPago;
     if(valorPago > 0){
-      this.resourceFormModal.patchValue({
-        saldo: valor
-      })
+      if(valorPago > this.conta.saldo){
+        toastr.warning('O valor pago não pode ser maior que o saldo remanescente');
+        this.resourceFormModal.patchValue({
+          valorPagoModal: null
+        })
+      }else{
+        this.resourceFormModal.patchValue({
+          saldo: valor
+        })
+      }
     }else{
       this.resourceFormModal.patchValue({
         saldo: this.conta.saldo

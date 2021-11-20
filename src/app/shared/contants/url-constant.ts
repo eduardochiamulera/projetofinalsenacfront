@@ -1,0 +1,1 @@
+export const apiPath : string = 'https://localhost:44385/api/';

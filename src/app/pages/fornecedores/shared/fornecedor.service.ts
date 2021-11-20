@@ -12,7 +12,7 @@ export class FornecedorService extends BaseResourceService<Pessoa> {
   public utilService: UtilService;
 
   constructor(protected injector: Injector) { 
-    super("https://localhost:44385/api/pessoa", injector, Pessoa.fromJson)
+    super("pessoa", injector, Pessoa.fromJson)
     this.utilService = new UtilService(injector)
   }
 

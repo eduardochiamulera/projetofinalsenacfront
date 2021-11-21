@@ -42,7 +42,7 @@ export class UtilService{
     }
 
     public getCategorias(tipo): Observable<CategoriaFinanceira[]> {
-        const condicoes = this.http.get(`${apiPath}/categoria/${tipo}`, { headers : 
+        const condicoes = this.http.get(`${apiPath}categoria/${tipo}`, { headers : 
             { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
               'AppUser' : 'eduardofraga1994@gmail.com'
             }}).pipe(

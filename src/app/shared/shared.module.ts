@@ -7,9 +7,10 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './components/confirm-dialog/confirm-dialog.service';
+import { StatusContaPipe } from './pipes/status-conta.pipe';
 
 @NgModule({
-  declarations: [ModalComponent, ConfirmDialogComponent],
+  declarations: [ModalComponent, ConfirmDialogComponent, StatusContaPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,7 +29,8 @@ import { ConfirmDialogService } from './components/confirm-dialog/confirm-dialog
     NgxPaginationModule,
     AutocompleteLibModule,
     ModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StatusContaPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmDialogService],

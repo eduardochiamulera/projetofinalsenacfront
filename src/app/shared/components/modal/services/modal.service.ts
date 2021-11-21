@@ -5,8 +5,6 @@ import { catchError, map } from "rxjs/operators";
 import { apiPath } from "src/app/shared/contants/url-constant";
 import { ContaFinanceiraBaixa } from "src/app/shared/models/platform/conta-financeira-baixa.model";
 
-import toastr from "toastr";
-
 export class ModalService{
 
     http: HttpClient;
@@ -21,7 +19,7 @@ export class ModalService{
           { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
             'AppUser' : 'eduardofraga1994@gmail.com'
           }}).pipe(
-          map(this.jsonDataToContaFinanceiraBaixa),
+          map(this.jsonDataToContaFinanceiraBaixa.bind(this)),
           catchError(this.handleError)
         )
       }

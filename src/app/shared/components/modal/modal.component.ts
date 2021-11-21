@@ -90,16 +90,21 @@ export class ModalComponent implements OnInit {
 
   submit(){
     this.submittingForm = true;
+    debugger
     const contaFinanceiraBaixa: ContaFinanceiraBaixa = new 
     ContaFinanceiraBaixa(this.resourceFormModal.value.contaFinanceiraId,
       this.resourceFormModal.value.valorPagoModal,this.resourceFormModal.value.observacaoBaixa,
       this.resourceFormModal.value.contaBancariaNome.id)
     this.modalService.create(contaFinanceiraBaixa).subscribe(
-      (resource) => toastr.success("Solicitação processada com sucesso"),
+      (resource) => this.fnSuccess(),
       (error) => toastr.error(error.message)
     );  
     this.close();
+  }
+
+  fnSuccess(){
     window.location.reload();
+    toastr.success("Solicitação processada com sucesso");
   }
 
   fnCalculaSaldo(valorPago){

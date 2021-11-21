@@ -18,6 +18,11 @@
     <thead>
       <tr class="bg-primary text-light">
         <th>Nome</th>
+        <th>Banco</th>
+        <th>Agencia</th>
+        <th>Digito</th>
+        <th>Conta</th>
+        <th>Digito</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -26,6 +31,21 @@
       <tr *ngFor="let conta of resources | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
         <td>
           <strong>{{conta.nomeConta}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.bancoNome}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.agencia}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.digitoAgencia}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.conta}}</strong><br>
+        </td>
+        <td>
+          <strong>{{conta.digitoConta}}</strong><br>
         </td>
         <td>
           <a [routerLink]="[conta.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>

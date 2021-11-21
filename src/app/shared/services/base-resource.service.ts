@@ -31,7 +31,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
   getById(id:string): Observable<T>{
     let guid = Guid.parse(id);
-    const url = `${apiPath}/${this.path}/${guid}`;
+    const url = `${apiPath}${this.path}/${guid}`;
     return this.http.get(url, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'
@@ -52,7 +52,7 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   }
 
   update(resource: T): Observable<T>{
-    const url = `${apiPath}/${this.path}/${resource.id}`;
+    const url = `${apiPath}${this.path}/${resource.id}`;
     return this.http.put(url, resource, { headers : 
       { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
         'AppUser' : 'eduardofraga1994@gmail.com'

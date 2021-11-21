@@ -4,6 +4,7 @@ import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/c
 import { ModalComponent, ModalConfig } from 'src/app/shared/components/modal/modal.component';
 import { ContaFinanceira } from 'src/app/shared/models/platform/conta-financeira.model';
 import { ContaPagarService } from '../shared/conta-pagar.service';
+import toastr from "toastr";
 
 @Component({
   selector: 'app-conta-pagar-list',
@@ -29,8 +30,8 @@ export class ContaPagarListComponent extends BaseResourceListComponent<ContaFina
 
   cancelarBaixas(id, service) : any{
     service.cancelarBaixas(id).subscribe(
-      resource => this.actionsForSuccess(),
-      error => this.errorOnLoadList("Erro ao calcular data de vencimento")
+      (resource) => service.fnSucces(),
+      (error) => service.fnError()
     )
   }
 

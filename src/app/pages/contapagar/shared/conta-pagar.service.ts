@@ -6,6 +6,7 @@ import { UtilService } from 'src/app/shared/services/Utils/utils-resource.servic
 import { map,catchError } from "rxjs/operators";
 import { CondicaoParcelamentoParcela } from 'src/app/shared/models/domain/condicao-resource.model';
 import { apiPath } from 'src/app/shared/contants/url-constant';
+import toastr from "toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,14 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
     contaPagar.condicaoParcelamentoNome = null;
     contaPagar.formaPagamentoNome = null;
     return super.update(contaPagar);
+  }
+
+  fnSucces(){
+    window.location.reload(); 
+    toastr.success("Solicitação processada com sucesso") 
+  }
+
+  fnError(){
+     toastr.error("Solicitação processada com sucesso")
   }
 }

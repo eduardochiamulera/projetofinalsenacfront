@@ -20,6 +20,7 @@
         <th>Descrição</th>
         <th>Valor Previsto</th>
         <th>Valor Pago</th>
+        <th>Status</th>
         <th>Data de Vencimento</th>
         <th>Fornecedor</th>
         <th>Ações</th>
@@ -38,6 +39,9 @@
           <strong>{{conta.valorPago || 0}}</strong><br>
         </td>
         <td>
+          <strong>{{conta.statusContaBancaria | statusConta}}</strong><br>
+        </td>
+        <td>
           <strong>{{conta.dataVencimento}}</strong><br>
         </td>
         <td>
@@ -46,8 +50,8 @@
         <td>
           <a [routerLink]="[conta.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>
           <a [routerLink]="[conta.id, 'view']" class="btn btn-outline-secondary btn-sm mr-1">Visualizar</a>
-          <button (click)="openModal(conta)" class="btn btn-outline-danger btn-sm">Baixar</button>
-          <button (click)="openConfirmDialog(conta.id, conta.descricao)" type="button" class="btn btn-outline-info btn-sm mr-1">Cancelar Baixas</button>
+          <button (click)="openModal(conta)" *ngIf="conta.statusContaBancaria != 'Pago'" class="btn btn-outline-warning btn-sm">Baixar</button>
+          <button (click)="openConfirmDialog(conta.id, conta.descricao)" *ngIf="conta.statusContaBancaria != 'EmAberto'" type="button" class="btn btn-outline-warning btn-sm mr-1">Cancelar Baixas</button>
           <button (click)="deleteResource(conta)" class="btn btn-outline-danger btn-sm">Excluir</button>
         </td>
       </tr>

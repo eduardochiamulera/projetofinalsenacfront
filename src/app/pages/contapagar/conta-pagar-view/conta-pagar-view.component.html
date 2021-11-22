@@ -1,101 +1,257 @@
 <nav class="mb-5"> 
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-      <li class="breadcrumb-item"><a routerLink="/contapagar">Contas a Pagar</a></li>
-      <li class="breadcrumb-item active">{{pageTitle}}</li>
-    </ol>
-  </nav>
-  
-  <div class="row mb-4">
-    <div class="col-md">
-      <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
-    </div>
-    <div class="col-md">
-      <a routerLink="/contabancaria" class="btn btn-light float-end">Voltar</a>
-    </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/contapagar">Contas a Pagar</a></li>
+    <li class="breadcrumb-item active">{{pageTitle}}</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
+  </div>
+  <div class="col-md">
+    <a routerLink="/contapagar" class="btn btn-light float-end">Voltar</a>
+  </div>
+</div>
+
+<form [formGroup]="resourceForm">
+
+  <div class="card">
+      <div class="card-header">
+          Informações sobre a conta a pagar
+      </div>
+      <div class="card-body">
+          <div class="form-row">
+            <input type="hidden" formControlName="id">
+            <input type="hidden" formControlName="statusContaBancaria" [ngModel]="0">
+            <input type="hidden" formControlName="tipoContaFinanceira" [ngModel]="0">
+              <div class="form-group row">
+                  <div class="col-sm-6">
+                      <label for="descricao">Descrição</label>
+                      <input type="text" class="form-control" disabled="disabled" id="descricao" formControlName="descricao">
+                      <div class="text-danger" *ngIf="resourceForm.get('descricao').invalid && resourceForm.get('descricao').touched">
+                        <div *ngIf="resourceForm.get('descricao').errors.required">dado obrigatório</div>
+                        <div *ngIf="resourceForm.get('descricao').errors.minlength">deve ter no minimo 5 caracteres</div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="pessoaNome">Fornecedor</label>
+                    <ng-autocomplete
+                    class="form-control"
+                    [data]="fornecedores"
+                    [searchKeyword]="keyword"
+                    placeholder="Digite o nome do Fornecedor"
+                    historyIdentifier="fornecedores"
+                    [itemTemplate]="itemTemplateFornecedor"                  
+                    (selected)="optionSelect($event, 'fornecedor')"
+                    (inputCleared)="optionSelect($event, 'fornecedor')"
+                    formControlName="pessoaNome"
+                    [disabled]=true
+                    [notFoundTemplate]="notFoundTemplateFornecedor"
+                    id="pessoaNome">
+                    
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplateFornecedor let-item>
+                      <a [innerHTML]="item.nome"></a>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplateFornecedor let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    <div class="text-danger" *ngIf="resourceForm.get('pessoaNome').invalid && resourceForm.get('pessoaNome').touched">
+                      <div *ngIf="resourceForm.get('pessoaNome').errors.required">dado obrigatório</div>
+                    </div>
+                  </div>
+              </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-2">
+                <label for="valorPrevisto">Valor</label>
+                <input type="text" class="form-control" disabled="disabled" id="valorPrevisto" formControlName="valorPrevisto">
+                <div class="text-danger" *ngIf="resourceForm.get('valorPrevisto').invalid && resourceForm.get('valorPrevisto').touched">
+                     <div *ngIf="resourceForm.get('valorPrevisto').errors.required">dado obrigatório</div>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <label for="dataEmissao">Data de Emissão</label>
+                <input type="date" class="form-control" id="dataEmissao" disabled="disabled" formControlName="dataEmissao">
+                <div class="text-danger" *ngIf="resourceForm.get('dataEmissao').invalid && resourceForm.get('dataEmissao').touched">
+                     <div *ngIf="resourceForm.get('dataEmissao').errors.required">dado obrigatório</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="condicaoParcelamentoNome">Condição de Parcelamento</label>
+                <ng-autocomplete
+                class="form-control"
+                [data]="condicoesParcelamento"
+                [searchKeyword]="keywordTitle"
+                placeholder="Digite o nome da Forma de Pagamento"
+                historyIdentifier="condicoesParcelamento"
+                [itemTemplate]="itemTemplatePagamento"                  
+                (selected)="optionSelect($event, 'condicaoParcelamento')"
+                (inputCleared)="optionSelect($event, 'condicaoParcelamento')"
+                formControlName="condicaoParcelamentoNome"
+                [disabled]=true
+                [notFoundTemplate]="notFoundTemplatePagamento"
+                id="condicaoParcelamentoNome">
+                
+                </ng-autocomplete>
+            
+                <ng-template #itemTemplatePagamento let-item>
+                  <a [innerHTML]="item.descricao"></a>
+                </ng-template>
+            
+                <ng-template #notFoundTemplatePagamento let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+                <div class="text-danger" *ngIf="resourceForm.get('condicaoParcelamentoNome').invalid && resourceForm.get('condicaoParcelamentoNome').touched">
+                  <div *ngIf="resourceForm.get('condicaoParcelamentoNome').errors.required">dado obrigatório</div>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <label for="dataVencimento">Data de Vencimento</label>
+                <input type="date" class="form-control" disabled="disabled" id="dataVencimento" formControlName="dataVencimento">
+                <div class="text-danger" *ngIf="resourceForm.get('dataVencimento').invalid && resourceForm.get('dataVencimento').touched">
+                     <div *ngIf="resourceForm.get('dataVencimento').errors.required">dado obrigatório</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                  <label for="formaPagamentoNome">Forma Pagamento</label>
+                  <ng-autocomplete
+                  class="form-control"
+                  [data]="formasPagamento"
+                  [searchKeyword]="keywordTitle"
+                  placeholder="Digite o nome da Forma de Pagamento"
+                  historyIdentifier="formasPagamento"
+                  [itemTemplate]="itemTemplateFormaPagamento"                  
+                  (selected)="optionSelect($event, 'formaPagamento')"
+                  (inputCleared)="optionSelect($event, 'formaPagamento')"
+                  formControlName="formaPagamentoNome"
+                  [disabled]=true
+                  [notFoundTemplate]="notFoundTemplateFormaPagamento"
+                  id="formaPagamentoNome">
+                  
+                  </ng-autocomplete>
+              
+                  <ng-template #itemTemplateFormaPagamento let-item>
+                    <a [innerHTML]="item.descricao"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplateFormaPagamento let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                  <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">
+                    <div *ngIf="resourceForm.get('formaPagamentoNome').errors.required">dado obrigatório</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="categoriaNome">Categoria</label>
+                  <ng-autocomplete
+                  class="form-control"
+                  [data]="categorias"
+                  [searchKeyword]="keywordTitle"
+                  placeholder="Digite o nome da Categoria Financeira"
+                  historyIdentifier="categorias"
+                  [itemTemplate]="itemTemplateCategoria"                  
+                  (selected)="optionSelect($event, 'categoria')"
+                  (inputCleared)="optionSelect($event, 'categoria')"
+                  formControlName="categoriaNome"
+                  [disabled]=true
+                  [notFoundTemplate]="notFoundTemplateCategoria"
+                  id="categoriaNome">
+                  
+                  </ng-autocomplete>
+              
+                  <ng-template #itemTemplateCategoria let-item>
+                    <a [innerHTML]="item.descricao"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplateCategoria let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                  <div class="text-danger" *ngIf="resourceForm.get('categoriaNome').invalid && resourceForm.get('categoriaNome').touched">
+                    <div *ngIf="resourceForm.get('categoriaNome').errors.required">dado obrigatório</div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Observacao</label>
+                <textarea class="form-control" id="observacao" disabled="disabled" rows="3" id="observacao" formControlName="observacao"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <div class="form-control form-check form-switch" id="divRepetir" [ngClass]="statusClassCheck">
+                  <input #value class="form-check-input" disabled="disabled" formControlName="repetir" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="repetir">Repetir</label>
+                </div>
+              </div>
+              <div class="col-sm-4" id="divTipoPeridiciodade" [ngClass]="statusClass">
+                <!-- select -->
+                <label class="form-check-label" for="tipoPeriodicidade">Periodicidade</label>
+                <select class="form-select" id="tipoPeriodicidade" disabled="disabled" formControlName="tipoPeriodicidade" aria-label="Default select example">
+                  <option>Selecione</option>
+                  <option value="1">Semanal</option>
+                  <option value="2">Mensal</option>
+                  <option value="3">Anual</option>
+                </select>
+              </div>
+              <div class="col-sm-4"  id="divNumeroRepeticoes" [ngClass]="statusClass">
+                <label for="numeroRepeticoes">Quantidade Repetições: </label>
+                <input type="text" class="form-control" id="numeroRepeticoes" disabled="disabled" formControlName="numeroRepeticoes">
+                <div class="text-danger" *ngIf="resourceForm.get('numeroRepeticoes').invalid && resourceForm.get('numeroRepeticoes').touched">
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor: </strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+    </ul>
   </div>
 
-  <form [formGroup]="resourceForm">
+  <!-- TABLE -->
+  <div *ngIf="resource.baixas && resource.baixas.length > 0">
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h2 border-left pl-2 pt-2">Baixas</h1>
+      </div>
+    </div>
 
-    <div class="card">
-        <div class="card-header">
-            Informações sobre a conta bancaria
-        </div>
-        <div class="card-body">
-            <div class="form-row">
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="nomeConta">Nome da conta</label>
-                        <input type="text" class="form-control" id="nomeConta" formControlName="nomeConta">
-                        <div class="text-danger" *ngIf="resourceForm.get('nomeConta').invalid && resourceForm.get('nomeConta').touched">
-                          <!-- <div *ngIf="resourceForm.get('nomeConta').errors.required">dado obrigatório</div> -->
-                          <!-- <div *ngIf="resourceForm.get('nomeConta').errors.minlength">deve ter no minimo 5 caracteres</div> -->
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <label for="agencia">Agencia</label>
-                        <input type="text" class="form-control" id="agencia" formControlName="agencia">
-                        <div class="text-danger" *ngIf="resourceForm.get('agencia').invalid && resourceForm.get('agencia').touched">
-                            <!-- <div *ngIf="resourceForm.get('agencia').errors.required">dado obrigatório</div>
-                            <div *ngIf="resourceForm.get('agencia').errors.minlength">deve ter no minimo 5 caracteres</div>
-                            <div *ngIf="resourceForm.get('agencia').errors.pattern">digite somente números</div> -->
-                          </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="digitoAgencia">Digito Agencia</label>
-                        <input type="text" class="form-control" id="digitoAgencia" formControlName="digitoAgencia">
-                        <div class="text-danger" *ngIf="resourceForm.get('digitoAgencia').invalid && resourceForm.get('digitoAgencia').touched">
-                            <!-- <div *ngIf="resourceForm.get('digitoAgencia').errors.required">dado obrigatório</div>
-                            <div *ngIf="resourceForm.get('digitoAgencia').errors.maxlength">deve ter no máximo 1 digito</div> -->
-                          </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group row">
-                        <div class="col-sm-4">
-                          <label for="conta">Número Conta</label>
-                          <input type="text" class="form-control" id="conta" formControlName="conta">
-                          <div class="text-danger" *ngIf="resourceForm.get('conta').invalid && resourceForm.get('conta').touched">
-                              <!-- <div *ngIf="resourceForm.get('conta').errors.required">dado obrigatório</div>
-                              <div *ngIf="resourceForm.get('conta').errors.minlength">deve ter no minimo 4 digitos</div> -->
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                          <label for="digitoConta">Dígito Conta</label>
-                          <input type="text" class="form-control" id="conta" formControlName="digitoConta">
-                          <div class="text-danger" *ngIf="resourceForm.get('digitoConta').invalid && resourceForm.get('digitoConta').touched">
-                              <!-- <div *ngIf="resourceForm.get('digitoConta').errors.required">dado obrigatório</div>
-                              <div *ngIf="resourceForm.get('digitoConta').errors.maxlength">deve ter no máximo 1 digito</div> -->
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <label for="banco">Banco</label>
-                          <ng-autocomplete
-                            class="form-control"
-                            placeholder="Digite o nome do Banco"
-                            historyIdentifier="bancos"
-                            [itemTemplate]="itemTemplate"
-                            formControlName="bancoNome"
-                            [notFoundTemplate]="notFoundTemplate">
-                          </ng-autocomplete>
-                      
-                          <ng-template #itemTemplate let-item>
-                            <a [innerHTML]="item.nome"></a>
-                          </ng-template>
-                      
-                          <ng-template #notFoundTemplate let-notFound>
-                            <div [innerHTML]="notFound"></div>
-                          </ng-template>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>    
-        </div>
-    </div>
-    <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
-      <strong>Erro no servidor: </strong>
-      <ul>
-        <li *ngFor="let error of serverErrorMessages">{{error}}</li>
-      </ul>
-    </div>
-  </form>
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-primary text-light">
+          <th>Valor Pago</th>
+          <th>Observação Baixa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let baixa of resource.baixas | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
+          <td>
+            <strong>{{baixa.valor}}</strong><br>
+          </td>
+          <td>
+            <strong>{{baixa.observacao  }}</strong><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+  </div>
+    <!-- END TABLE -->
+</form>
+

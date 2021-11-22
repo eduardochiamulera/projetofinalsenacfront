@@ -11,6 +11,7 @@ import toastr from "toastr";
 @Injectable()
 export abstract class BaseResourceViewComponent<T extends BaseResourceModel> implements OnInit {
 
+  keyword = 'nome';
   resourceForm: FormGroup;
   pageTitle: string = "Visualizar";
   serverErrorMessages: string[] = null;

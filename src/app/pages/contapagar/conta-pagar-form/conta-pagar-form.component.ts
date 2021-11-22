@@ -1,7 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
+import { CondicaoParcelamento } from 'src/app/shared/models/platform/condicao-parcelamento.model';
 import { ContaFinanceira } from 'src/app/shared/models/platform/conta-financeira.model';
+import { FormaPagamento } from 'src/app/shared/models/platform/forma-pagamento.model';
 import { Pessoa } from 'src/app/shared/models/platform/pessoa.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 import { FornecedorService } from '../../fornecedores/shared/fornecedor.service';
@@ -18,11 +20,13 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
   utilService: UtilService;
   keywordTitle="descricao"
   fornecedores: Pessoa[] = [];
-  formasPagamento: any[] = [];
-  condicoesParcelamento: any[] = [];
+  formasPagamento: FormaPagamento[] = [];
+  condicoesParcelamento: CondicaoParcelamento[] = [];
   categorias: any[] = [];
   statusClassCheck = "active";
   statusClass = "not-active";
+  public paginaAtual = 1;
+  public pageSize = 10;
 
   constructor(
     protected contaPagarService: ContaPagarService, protected injector: Injector) {
@@ -80,7 +84,6 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
         this.resourceForm.patchValue({categoriaId : event ? event.id : null });
         break;
       case 'condicaoParcelamento':
-        debugger;
         this.resourceForm.patchValue({condicaoParcelamentoId : event ? event.id : null });
         this.calulaDataValidade(this.resourceForm.value.condicaoParcelamentoId, 
           this.resourceForm.value.dataEmissao, this.resourceForm.value.valorPrevisto);

@@ -12,7 +12,7 @@ import { ClienteViewComponent } from './cliente-view/cliente-view.component';
   declarations: [ClienteListComponent, ClienteFormComponent, ClienteViewComponent],
   imports: [
     ClientesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ClientesModule { }

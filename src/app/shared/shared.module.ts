@@ -9,8 +9,12 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { ConfirmDialogService } from './components/confirm-dialog/confirm-dialog.service';
 import { StatusContaPipe } from './pipes/status-conta.pipe';
 
+import { IMaskModule } from 'angular-imask';
+import { TelefonePipe } from './pipes/telefone.pipe';
+
+
 @NgModule({
-  declarations: [ModalComponent, ConfirmDialogComponent, StatusContaPipe],
+  declarations: [ModalComponent, ConfirmDialogComponent, StatusContaPipe, TelefonePipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -18,6 +22,7 @@ import { StatusContaPipe } from './pipes/status-conta.pipe';
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
+    IMaskModule,
     AutocompleteLibModule,
   ],
   exports:[
@@ -30,7 +35,9 @@ import { StatusContaPipe } from './pipes/status-conta.pipe';
     AutocompleteLibModule,
     ModalComponent,
     ConfirmDialogComponent,
-    StatusContaPipe
+    StatusContaPipe,
+    IMaskModule,
+    TelefonePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmDialogService],

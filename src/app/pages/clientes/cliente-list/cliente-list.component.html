@@ -18,6 +18,9 @@
     <thead>
       <tr class="bg-primary text-light">
         <th>Nome</th>
+        <th>Documento</th>
+        <th>Telefone</th>
+        <th>E-mail</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -26,6 +29,15 @@
         <td>
           <strong>{{cliente.nome}}</strong><br>
           <small>{{cliente.observacao}}</small>
+        </td>
+        <td>
+          <strong>{{cliente.cpfcnpj}}</strong>
+        </td>
+        <td>
+          <strong>{{ cliente.telefone | telefonePipe}}</strong>
+        </td>
+        <td>
+          <strong>{{cliente.email}}</strong>
         </td>
         <td>
           <a [routerLink]="[cliente.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>

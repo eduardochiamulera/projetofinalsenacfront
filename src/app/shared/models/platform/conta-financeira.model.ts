@@ -1,5 +1,6 @@
 import { DecimalPipe } from "@angular/common";
 import { BaseResourceModel } from "../base/base-resource.model";
+import { ContaFinanceiraBaixa } from "./conta-financeira-baixa.model";
 export class ContaFinanceira extends BaseResourceModel{
     constructor(
         public valorPrevisto?: number,
@@ -24,6 +25,7 @@ export class ContaFinanceira extends BaseResourceModel{
         public pessoaNome?: string,
         public formaPagamentoNome?: string,
         public tipoContaFinanceira?: string,
+        public baixas?: ContaFinanceiraBaixa[]
     ){ super() }
 
     static fromJson(jsonData: any): ContaFinanceira{

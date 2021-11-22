@@ -8,6 +8,7 @@ import { Pais } from 'src/app/shared/models/domain/pais-resource.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
 import { Estado } from 'src/app/shared/models/domain/estado-resource.model';
 import { Cidade } from 'src/app/shared/models/domain/cidade-resource.model';
+import * as Mask from "../../../shared/contants/mask-constant";
 
 @Component({
   selector: 'app-cliente-form',
@@ -20,6 +21,14 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
   estados: Estado[] = [];
   cidades: Cidade[] = [];
   private utilService : UtilService;
+
+  imaskConfig = Mask.MASKCELULARCONFIG
+
+  imaskConfigTel = Mask.MASKCONFIGTEL
+
+  imaskCPF = Mask.MASKDOCUMENTCPF
+
+  imaskCNPJ = Mask.MASKDOCUMENTCNPJ
 
   constructor(
     protected clienteService: ClienteService, protected injector: Injector) {
@@ -99,10 +108,10 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
       estadoId: [null],
       paisId: [null],
       pais:[null],
-      telefone: [null],
-      celular: [null],
+      telefone: [null,[Validators.maxLength(18)]],
+      celular: [null, [Validators.maxLength(1)]],
       contato: [null],
-      email: [null],
+      email: [null, Validators.email],
       nomeComercial: [null],
       cliente: [null],
       fornecedor: [null],

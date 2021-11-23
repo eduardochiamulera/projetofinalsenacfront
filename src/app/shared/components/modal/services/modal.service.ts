@@ -14,7 +14,6 @@ export class ModalService{
   }
 
     public create(resource: ContaFinanceiraBaixa): Observable<ContaFinanceiraBaixa>{
-      debugger
         return this.http.post(`${apiPath}contafinanceirabaixa`, resource, { headers : 
           { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
             'AppUser' : 'eduardofraga1994@gmail.com'

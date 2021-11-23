@@ -45,6 +45,7 @@ export abstract class BaseResourceViewComponent<T extends BaseResourceModel> imp
         (resource) => {
           this.resource = resource
           this.resourceForm.patchValue(resource); //bind loaded resource data to resourceForm
+          this.afterLoad();
         },
         (error) => this.errorOnLoadList("Ocorreu um erro no servidor")
       )
@@ -56,4 +57,6 @@ export abstract class BaseResourceViewComponent<T extends BaseResourceModel> imp
   }
 
   protected abstract buildResourceForm(): void;
+
+  protected abstract afterLoad(): void;
 }

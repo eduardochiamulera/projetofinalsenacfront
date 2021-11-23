@@ -35,8 +35,7 @@ export class ContaBancariaFormComponent extends BaseResourceFormComponent<ContaB
       this.utilService = new UtilService(injector);
     }
     
-    optionSelect(event){  
-      debugger;   
+    optionSelect(event){   
       if(event){
         this.resourceForm.patchValue({
           bancoId : event.id

@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { BaseResourceViewComponent } from 'src/app/shared/components/base-resource-view/base-resource-view.component';
 import { Pessoa } from '../../../shared/models/platform/pessoa.model';
 import { ClienteService } from '../shared/cliente.service';
+import * as Mask from "../../../shared/contants/mask-constant";
 
 @Component({
   selector: 'app-pessoa-view',
@@ -9,7 +10,12 @@ import { ClienteService } from '../shared/cliente.service';
   styleUrls: ['./cliente-view.component.css']
 })
 export class ClienteViewComponent extends BaseResourceViewComponent<Pessoa> {
+  protected afterLoad(): void {
+  }
   
+  imaskConfig = Mask.MASKCELULARCONFIG
+
+  imaskConfigTel = Mask.MASKCONFIGTEL
   
   constructor(protected pessoaService: ClienteService, protected injector: Injector) {
     super(injector, new Pessoa(), pessoaService, Pessoa.fromJson)

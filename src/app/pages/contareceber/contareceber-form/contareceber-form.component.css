@@ -1,0 +1,15 @@
+.ng-autocomplete{
+    width: 100%;
+}
+
+#divRepetir{
+    border: none;
+}
+
+.active{
+    display: block;
+  }
+  
+.not-active{
+    display: none;
+}

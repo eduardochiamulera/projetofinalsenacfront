@@ -26,10 +26,6 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
 
   imaskConfigTel = Mask.MASKCONFIGTEL
 
-  imaskCPF = Mask.MASKDOCUMENTCPF
-
-  imaskCNPJ = Mask.MASKDOCUMENTCNPJ
-
   constructor(
     protected clienteService: ClienteService, protected injector: Injector) {
       super(injector, new Pessoa(), clienteService, Pessoa.fromJson);
@@ -109,7 +105,7 @@ export class ClienteFormComponent extends BaseResourceFormComponent<Pessoa> {
       paisId: [null],
       pais:[null],
       telefone: [null,[Validators.maxLength(18)]],
-      celular: [null, [Validators.maxLength(1)]],
+      celular: [null, [Validators.maxLength(19)]],
       contato: [null],
       email: [null, Validators.email],
       nomeComercial: [null],

@@ -6,20 +6,20 @@ import { ContaFinanceira } from 'src/app/shared/models/platform/conta-financeira
 import { FormaPagamento } from 'src/app/shared/models/platform/forma-pagamento.model';
 import { Pessoa } from 'src/app/shared/models/platform/pessoa.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
-import { FornecedorService } from '../../fornecedores/shared/fornecedor.service';
-import { ContaPagarService } from '../shared/conta-pagar.service';
+import { ClienteService } from '../../clientes/shared/cliente.service';
+import { ContaReceberService } from '../shared/conta-receber.service';
 
 @Component({
-  selector: 'app-conta-pagar-form',
-  templateUrl: './conta-pagar-form.component.html',
-  styleUrls: ['./conta-pagar-form.component.css']
+  selector: 'app-contareceber-form',
+  templateUrl: './contareceber-form.component.html',
+  styleUrls: ['./contareceber-form.component.css']
 })
-export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFinanceira> {
+export class ContaReceberFormComponent extends BaseResourceFormComponent<ContaFinanceira> {
 
-  fornecedorService: FornecedorService;
+  clienteService: ClienteService;
   utilService: UtilService;
   keywordTitle="descricao"
-  fornecedores: Pessoa[] = [];
+  clientes: Pessoa[] = [];
   formasPagamento: FormaPagamento[] = [];
   condicoesParcelamento: CondicaoParcelamento[] = [];
   categorias: any[] = [];
@@ -29,9 +29,9 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
   public pageSize = 10;
 
   constructor(
-    protected contaPagarService: ContaPagarService, protected injector: Injector) {
+    protected contaPagarService: ContaReceberService, protected injector: Injector) {
       super(injector, new ContaFinanceira(), contaPagarService, ContaFinanceira.fromJson);
-      this.fornecedorService = new FornecedorService(injector);
+      this.clienteService = new ClienteService(injector);
       this.utilService = new UtilService(injector);
     }
 
@@ -42,15 +42,15 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
       dataEmissao: this.resource.dataEmissao,
       dataVencimento: this.resource.dataVencimento
     })
-   this.showCheckRepetir(); 
+    this.showCheckRepetir(); 
   }
 
   ngOnInit(){
-      this.fornecedorService.getAll().subscribe(
-        resources => this.fornecedores = resources,
-        error => this.errorOnLoadList("Erro ao carregar a lista de fornecedores")
+      this.clienteService.getAll().subscribe(
+        resources => this.clientes = resources,
+        error => this.errorOnLoadList("Erro ao carregar a lista de clientes")
       )
-      this.utilService.getCategorias('Despesa').subscribe(
+      this.utilService.getCategorias('Receita').subscribe(
         resources => this.categorias = resources,
         error => this.errorOnLoadList("Erro ao carregar a lista de categorias")
       )
@@ -80,7 +80,7 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
 
   optionSelect(event, caller){    
     switch(caller){
-      case 'fornecedor':
+      case 'cliente':
         this.resourceForm.patchValue({pessoaId : event ? event.id : null });
         break;
       case 'formaPagamento':
@@ -138,3 +138,4 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
     });
   }
 }
+

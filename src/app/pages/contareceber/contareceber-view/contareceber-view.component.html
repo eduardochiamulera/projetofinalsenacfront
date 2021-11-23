@@ -1,0 +1,232 @@
+<nav class="mb-5"> 
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/contareceber">Contas a receber</a></li>
+      <li class="breadcrumb-item active">{{pageTitle}}</li>
+    </ol>
+  </nav>
+  
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
+    </div>
+    <div class="col-md">
+      <a routerLink="/contareceber" class="btn btn-light float-end">Voltar</a>
+    </div>
+  </div>
+
+  <form [formGroup]="resourceForm">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre a conta a receber
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+              <input type="hidden" formControlName="id">
+              <input type="hidden" formControlName="statusContaBancaria" [ngModel]="0">
+              <input type="hidden" formControlName="tipoContaFinanceira" [ngModel]="1">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="descricao">Descrição</label>
+                        <input type="text" class="form-control" disabled="disabled" id="descricao" formControlName="descricao">
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="pessoaNome">Cliente</label>
+                      <ng-autocomplete
+                      class="form-control"
+                      [data]="clientes"
+                      [searchKeyword]="keyword"
+                      placeholder="Digite o nome do Cliente"
+                      historyIdentifier="clientes"
+                      [itemTemplate]="itemTemplateCliente"                  
+                      (selected)="optionSelect($event, 'cliente')"
+                      (inputCleared)="optionSelect($event, 'cliente')"
+                      formControlName="pessoaNome"
+                      [notFoundTemplate]="notFoundTemplateCliente"
+                      [disabled]=true
+                      id="pessoaNome">
+                      
+                      </ng-autocomplete>
+                  
+                      <ng-template #itemTemplateCliente let-item>
+                        <a [innerHTML]="item.nome"></a>
+                      </ng-template>
+                  
+                      <ng-template #notFoundTemplateCliente let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                    </div>
+                </div>
+            </div> 
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="valorPrevisto">Valor</label>
+                  <input type="text" disabled="disabled" class="form-control" id="valorPrevisto" formControlName="valorPrevisto">
+                </div>
+                <div class="col-sm-2">
+                  <label for="dataEmissao">Data de Emissão</label>
+                  <input type="date" disabled="disabled" class="form-control" id="dataEmissao" formControlName="dataEmissao">
+                </div>
+                <div class="col-sm-6">
+                  <label for="condicaoParcelamentoNome">Condição de Parcelamento</label>
+                  <ng-autocomplete
+                  class="form-control"
+                  [data]="condicoesParcelamento"
+                  [searchKeyword]="keywordTitle"
+                  placeholder="Digite o nome da Forma de Pagamento"
+                  historyIdentifier="condicoesParcelamento"
+                  [itemTemplate]="itemTemplatePagamento"                  
+                  (selected)="optionSelect($event, 'condicaoParcelamento')"
+                  (inputCleared)="optionSelect($event, 'condicaoParcelamento')"
+                  formControlName="condicaoParcelamentoNome"
+                  [notFoundTemplate]="notFoundTemplatePagamento"
+                  [disabled]=true
+                  id="condicaoParcelamentoNome">
+                  
+                  </ng-autocomplete>
+              
+                  <ng-template #itemTemplatePagamento let-item>
+                    <a [innerHTML]="item.descricao"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplatePagamento let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
+                <div class="col-sm-2">
+                  <label for="dataVencimento">Data de Vencimento</label>
+                  <input type="date" class="form-control" disabled="disabled" id="dataVencimento" formControlName="dataVencimento">
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label for="formaPagamentoNome">Forma Pagamento</label>
+                    <ng-autocomplete
+                    class="form-control"
+                    [data]="formasPagamento"
+                    [searchKeyword]="keywordTitle"
+                    placeholder="Digite o nome da Forma de Pagamento"
+                    historyIdentifier="formasPagamento"
+                    [itemTemplate]="itemTemplateFormaPagamento"                  
+                    (selected)="optionSelect($event, 'formaPagamento')"
+                    (inputCleared)="optionSelect($event, 'formaPagamento')"
+                    formControlName="formaPagamentoNome"
+                    [disabled]=true
+                    [notFoundTemplate]="notFoundTemplateFormaPagamento"
+                    id="formaPagamentoNome">
+                    
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplateFormaPagamento let-item>
+                      <a [innerHTML]="item.descricao"></a>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplateFormaPagamento let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    <div class="text-danger" *ngIf="resourceForm.get('formaPagamentoNome').invalid && resourceForm.get('formaPagamentoNome').touched">
+                      <div *ngIf="resourceForm.get('formaPagamentoNome').errors.required">dado obrigatório</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="categoriaNome">Categoria</label>
+                    <ng-autocomplete
+                    class="form-control"
+                    [data]="categorias"
+                    [searchKeyword]="keywordTitle"
+                    placeholder="Digite o nome da Categoria Financeira"
+                    historyIdentifier="categorias"
+                    [itemTemplate]="itemTemplateCategoria"                  
+                    (selected)="optionSelect($event, 'categoria')"
+                    (inputCleared)="optionSelect($event, 'categoria')"
+                    formControlName="categoriaNome"
+                    [disabled]=true
+                    [notFoundTemplate]="notFoundTemplateCategoria"
+                    id="categoriaNome">
+                    
+                    </ng-autocomplete>
+                
+                    <ng-template #itemTemplateCategoria let-item>
+                      <a [innerHTML]="item.descricao"></a>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplateCategoria let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Observacao</label>
+                  <textarea class="form-control" disabled="disabled" id="observacao" rows="3" id="observacao" formControlName="observacao"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group row">
+                <div class="col-sm-4">
+                  <div class="form-control form-check form-switch" id="divRepetir" [ngClass]="statusClassCheck">
+                    <input #value class="form-check-input" formControlName="repetir" type="checkbox" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="repetir">Repetir</label>
+                  </div>
+                </div>
+                <div class="col-sm-4" id="divTipoPeridiciodade" [ngClass]="statusClass">
+                  <!-- select -->
+                  <label class="form-check-label" for="tipoPeriodicidade">Periodicidade</label>
+                  <select class="form-select" id="tipoPeriodicidade" formControlName="tipoPeriodicidade" aria-label="Default select example">
+                    <option>Selecione</option>
+                    <option value="1">Semanal</option>
+                    <option value="2">Mensal</option>
+                    <option value="3">Anual</option>
+                  </select>
+                </div>
+                <div class="col-sm-4"  id="divNumeroRepeticoes" [ngClass]="statusClass">
+                  <label for="numeroRepeticoes">Quantidade Repetições: </label>
+                  <input type="text" class="form-control" id="numeroRepeticoes" formControlName="numeroRepeticoes">
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+      <strong>Erro no servidor: </strong>
+      <ul>
+        <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+      </ul>
+    </div>
+
+    <!-- TABLE -->
+    <div *ngIf="resource.baixas && resource.baixas.length > 0">
+      <div class="row mb-4">
+        <div class="col-md">
+          <h1 class="h2 border-left pl-2 pt-2">Baixas</h1>
+        </div>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-primary text-light">
+            <th>Valor Pago</th>
+            <th>Observação Baixa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let baixa of resource.baixas | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
+            <td>
+              <strong>{{baixa.valor}}</strong><br>
+            </td>
+            <td>
+              <strong>{{baixa.observacao  }}</strong><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>  
+    </div>
+      <!-- END TABLE -->
+  </form>

@@ -29,6 +29,8 @@ export class ContaFinanceira extends BaseResourceModel{
     ){ super() }
 
     static fromJson(jsonData: any): ContaFinanceira{
+        jsonData.dataEmissao = jsonData.dataEmissao.replace("T00:00:00","")
+        jsonData.dataVencimento = jsonData.dataVencimento.replace("T00:00:00","")
         return Object.assign(new ContaFinanceira(), jsonData);
     }
 }

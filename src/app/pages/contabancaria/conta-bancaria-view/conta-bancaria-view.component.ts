@@ -9,6 +9,8 @@ import { ContaBancariaService } from '../../../shared/services/contabancaria.ser
   styleUrls: ['./conta-bancaria-view.component.css']
 })
 export class ContaBancariaViewComponent extends BaseResourceViewComponent<ContaBancaria> {
+  protected afterLoad(): void {
+  }
   
   
   constructor(protected contaBancariaService: ContaBancariaService, protected injector: Injector) {

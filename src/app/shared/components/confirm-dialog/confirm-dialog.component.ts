@@ -27,7 +27,6 @@ export class ConfirmDialogComponent implements OnInit {
   }
 
   public accept() {
-    debugger;
     this.action(this.id, this.service);
     this.activeModal.close(true);
   }

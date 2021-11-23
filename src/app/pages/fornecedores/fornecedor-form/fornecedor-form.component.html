@@ -78,6 +78,30 @@
                   <div class="text-danger" *ngIf="resourceForm.get('complemento').invalid && resourceForm.get('complemento').touched">
                   </div>
                 </div> 
+                <div class="col-sm-4">
+                  <label for="telefone">Telefone</label>
+                  <input type="text" [imask]="imaskConfigTel" class="form-control" id="telefone" formControlName="telefone">
+                  <div class="text-danger" *ngIf="resourceForm.get('telefone').invalid && resourceForm.get('telefone').touched">
+                    <div *ngIf="resourceForm.get('telefone').errors.maxlength">Digite no máximo 10 digitos</div>
+                    <div *ngIf="resourceForm.get('telefone').errors.pattern">Digite somente números</div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <label for="celular">Celular</label>
+                  <input type="text" [imask]="imaskConfig"
+                   class="form-control" id="celular" formControlName="celular">
+                  <div class="text-danger" *ngIf="resourceForm.get('celular').invalid && resourceForm.get('celular').touched">
+                    <div *ngIf="resourceForm.get('celular').errors.maxlength">Digite no máximo 11 digitos</div>
+                    <div *ngIf="resourceForm.get('celular').errors.pattern">Digite somente números</div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" formControlName="email">
+                  <div class="text-danger" *ngIf="resourceForm.get('email').invalid && resourceForm.get('email').touched">
+                    <div *ngIf="resourceForm.get('email').errors.email">E-mail inválido</div>
+                  </div>
+                </div>
               </div>
             </div>    
             <div class="form-row">

@@ -60,7 +60,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
       .subscribe(
         (resource) => {
           this.resource = resource
-          console.log(this.resource)
           this.resourceForm.patchValue(resource); //bind loaded resource data to resourceForm
           this.afterLoad();
         },

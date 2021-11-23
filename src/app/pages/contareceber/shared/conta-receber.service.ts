@@ -11,7 +11,7 @@ import toastr from "toastr";
 @Injectable({
   providedIn: 'root'
 })
-export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
+export class ContaReceberService extends BaseResourceService<ContaFinanceira> {
 
   public utilService: UtilService;
 
@@ -21,7 +21,7 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
   }
 
   getAll() : Observable<ContaFinanceira[]>{
-    return super.getAll("/contapagar");
+    return super.getAll("/contaReceber");
   }
 
   getDataVencimento(condicaoId, dataEmissao, valor): Observable<any>{
@@ -48,20 +48,20 @@ export class ContaPagarService extends BaseResourceService<ContaFinanceira> {
     return resource;
   }
 
-  create(contaPagar: ContaFinanceira): Observable<ContaFinanceira>{
-    contaPagar.pessoaNome = null;
-    contaPagar.categoriaNome = null;
-    contaPagar.condicaoParcelamentoNome = null;
-    contaPagar.formaPagamentoNome = null;
-    return super.create(contaPagar);
+  create(contaReceber: ContaFinanceira): Observable<ContaFinanceira>{
+    contaReceber.pessoaNome = null;
+    contaReceber.categoriaNome = null;
+    contaReceber.condicaoParcelamentoNome = null;
+    contaReceber.formaPagamentoNome = null;
+    return super.create(contaReceber);
   }
 
-  update(contaPagar: ContaFinanceira): Observable<ContaFinanceira>{
-    contaPagar.pessoaNome = null;
-    contaPagar.categoriaNome = null;
-    contaPagar.condicaoParcelamentoNome = null;
-    contaPagar.formaPagamentoNome = null;
-    return super.update(contaPagar);
+  update(contaReceber: ContaFinanceira): Observable<ContaFinanceira>{
+    contaReceber.pessoaNome = null;
+    contaReceber.categoriaNome = null;
+    contaReceber.condicaoParcelamentoNome = null;
+    contaReceber.formaPagamentoNome = null;
+    return super.update(contaReceber);
   }
 
   fnSucces(){

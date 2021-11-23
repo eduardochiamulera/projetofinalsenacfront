@@ -5,19 +5,19 @@ import { ContaFinanceira } from 'src/app/shared/models/platform/conta-financeira
 import { FormaPagamento } from 'src/app/shared/models/platform/forma-pagamento.model';
 import { Pessoa } from 'src/app/shared/models/platform/pessoa.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
-import { FornecedorService } from '../../fornecedores/shared/fornecedor.service';
-import { ContaPagarService } from '../shared/conta-pagar.service';
+import { ClienteService } from '../../clientes/shared/cliente.service';
+import { ContaReceberService } from '../shared/conta-receber.service';
 
 @Component({
-  selector: 'app-conta-pagar-view',
-  templateUrl: './conta-pagar-view.component.html',
-  styleUrls: ['./conta-pagar-view.component.css']
+  selector: 'app-contareceber-view',
+  templateUrl: './contareceber-view.component.html',
+  styleUrls: ['./contareceber-view.component.css']
 })
-export class ContaPagarViewComponent extends BaseResourceViewComponent<ContaFinanceira> {
+export class ContaReceberViewComponent extends BaseResourceViewComponent<ContaFinanceira> {
 
   
   keywordTitle="descricao"
-  fornecedores: Pessoa[] = [];
+  clientes: Pessoa[] = [];
   formasPagamento: FormaPagamento[] = [];
   condicoesParcelamento: CondicaoParcelamento[] = [];
   categorias: any[] = [];
@@ -25,21 +25,21 @@ export class ContaPagarViewComponent extends BaseResourceViewComponent<ContaFina
   statusClass = "not-active";
   public paginaAtual = 1;
   public pageSize = 10;
-  fornecedorService: FornecedorService;
+  clienteService: ClienteService;
   utilService: UtilService;
   
-  constructor(protected contaPagarService: ContaPagarService, protected injector: Injector) {
+  constructor(protected contaPagarService: ContaReceberService, protected injector: Injector) {
     super(injector, new ContaFinanceira(), contaPagarService, ContaFinanceira.fromJson)
-    this.fornecedorService = new FornecedorService(injector);
+    this.clienteService = new ClienteService(injector);
       this.utilService = new UtilService(injector);
   }
 
   ngOnInit(){
-    this.fornecedorService.getAll().subscribe(
-      resources => this.fornecedores = resources,
-      error => this.errorOnLoadList("Erro ao carregar a lista de fornecedores")
+    this.clienteService.getAll().subscribe(
+      resources => this.clientes = resources,
+      error => this.errorOnLoadList("Erro ao carregar a lista de clientees")
     )
-    this.utilService.getCategorias('Despesa').subscribe(
+    this.utilService.getCategorias('Receita').subscribe(
       resources => this.categorias = resources,
       error => this.errorOnLoadList("Erro ao carregar a lista de categorias")
     )
@@ -68,7 +68,7 @@ protected afterLoad(): void {
 
 optionSelect(event, caller){    
   switch(caller){
-    case 'fornecedor':
+    case 'cliente':
       this.resourceForm.patchValue({pessoaId : event ? event.id : null });
       break;
     case 'formaPagamento':

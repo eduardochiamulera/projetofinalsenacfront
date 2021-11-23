@@ -3,6 +3,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { BaseResourceFormComponent } from "../../../shared/components/base-resource-form/base-resource-form.component";
 import { Pessoa } from "../../../shared/models/platform/pessoa.model";
 import { FornecedorService } from "../shared/fornecedor.service";
+import * as Mask from "../../../shared/contants/mask-constant";
 
 import { Pais } from 'src/app/shared/models/domain/pais-resource.model';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
@@ -20,6 +21,10 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
   estados: Estado[] = [];
   cidades: Cidade[] = [];
   private utilService : UtilService;
+
+  imaskConfig = Mask.MASKCELULARCONFIG
+
+  imaskConfigTel = Mask.MASKCONFIGTEL
 
   constructor(
     protected fornecedorService: FornecedorService, protected injector: Injector) {
@@ -75,7 +80,6 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
   }
 
   optionSelectCidade(event){
-    debugger;
     if(event){
       this.resourceForm.patchValue({
         cidadeId : event.id,
@@ -103,10 +107,10 @@ export class FornecedorFormComponent extends BaseResourceFormComponent<Pessoa> {
       estadoId: [null],
       paisId: [null],
       pais:[null],
-      telefone: [null],
-      celular: [null],
+      telefone: [null,[Validators.maxLength(18)]],
+      celular: [null, [Validators.maxLength(19)]],
       contato: [null],
-      email: [null],
+      email: [null, Validators.email],
       nomeComercial: [null],
       cliente: [null],
       fornecedor: [null],

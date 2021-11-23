@@ -36,7 +36,7 @@
                   </div>
                   <div class="col-sm-6">
                     <label for="nome">Documento</label>
-                    <input type="text" #documento class="form-control" [imask]="imaskCPF || imaskCNPJ" id="cpfcnpj" formControlName="cpfcnpj">
+                    <input type="text" #documento class="form-control" formControlName="cpfcnpj">
                     <div class="text-danger" *ngIf="resourceForm.get('cpfcnpj').invalid && resourceForm.get('nome').touched">
                       <div *ngIf="resourceForm.get('cpfcnpj').errors.minlength">deve ter no minimo 5 caracteres</div>
                     </div>

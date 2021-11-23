@@ -61,6 +61,19 @@
                 <label for="complemento">Complemento</label>
                 <input type="text" disabled="disabled" class="form-control" id="complemento" formControlName="complemento">
               </div> 
+              <div class="col-sm-4">
+                <label for="telefone">Telefone</label>
+                <input type="text" disabled="disabled" [imask]="imaskConfigTel" class="form-control" id="telefone" formControlName="telefone">
+              </div>
+              <div class="col-sm-4">
+                <label for="celular">Celular</label>
+                <input type="text" [imask]="imaskConfig"
+                 class="form-control" disabled="disabled" id="celular" formControlName="celular">
+              </div>
+              <div class="col-sm-4">
+                <label for="email">Email</label>
+                <input type="email" disabled="disabled" class="form-control" id="email" formControlName="email">
+              </div>
             </div>
           </div>    
           <div class="form-row">

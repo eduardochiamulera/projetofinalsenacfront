@@ -51,6 +51,17 @@ export class UtilService{
           )
           return condicoes;
     }
+
+    public getTodasCategorias(): Observable<CategoriaFinanceira[]> {
+      const condicoes = this.http.get(`${apiPath}categoria`, { headers : 
+          { 'EmpresaId' : '525CAC79-4352-4A12-A7A4-18395F1AAEC5',
+            'AppUser' : 'eduardofraga1994@gmail.com'
+          }}).pipe(
+            map(this.jsonDataToCategoria),
+            catchError(this.handleError)
+        )
+        return condicoes;
+  }
     
 
     public getBancos(): Observable<Banco[]> {

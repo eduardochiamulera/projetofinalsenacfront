@@ -8,7 +8,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './components/confirm-dialog/confirm-dialog.service';
 import { StatusContaPipe } from './pipes/status-conta.pipe';
-
+import {LOCALE_ID} from '@angular/core';
 import { IMaskModule } from 'angular-imask';
 import { TelefonePipe } from './pipes/telefone.pipe';
 
@@ -40,7 +40,9 @@ import { TelefonePipe } from './pipes/telefone.pipe';
     TelefonePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmDialogService],
+  providers: [
+    ConfirmDialogService,
+  ],
   entryComponents: [ModalComponent,ConfirmDialogComponent]
 })
 export class SharedModule { }

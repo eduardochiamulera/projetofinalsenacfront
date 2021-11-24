@@ -28,6 +28,7 @@
     "angular-ng-autocomplete": "^2.0.5",
     "bootstrap": "^5.1.2",
     "chart.js": "^2.9.4",
+    "currency-formatter": "^1.5.9",
     "guid-typescript": "^1.0.9",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^7.1.0",

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Injector } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { ContaFinanceira } from 'src/app/shared/models/platform/conta-financeira.model';
 import { ContaFinanceiraService } from 'src/app/shared/services/conta-financeira.service';
 import { UtilService } from 'src/app/shared/services/Utils/utils-resource.service';
-//import currencyFormatter from "currency-formatter";
+import currencyFormatter from "currency-formatter";
 
 
 @Component({
@@ -69,7 +68,6 @@ export class ReportsComponent implements OnInit {
   }
 
   private calculateBalance(){
-    debugger
     let expenseTotal = 0;
     let revenueTotal = 0;
 
@@ -80,13 +78,12 @@ export class ReportsComponent implements OnInit {
         expenseTotal += entry.valorPago ?? 0
     })
 
-    this.expenseTotal = expenseTotal;
-    this.revenueTotal = revenueTotal;
-    this.balance = revenueTotal - expenseTotal;
+    this.expenseTotal = currencyFormatter.format(expenseTotal, { code : 'BRL'});
+    this.revenueTotal = currencyFormatter.format(revenueTotal, { code : 'BRL'});;
+    this.balance = currencyFormatter.format(revenueTotal - expenseTotal, { code : 'BRL'});
   }
 
   private setChartData(){
-    debugger
    this.revenueChartData = this.getChartData('ContaReceber', 'Gráfico de Receitas', '#9CCC65');
 
     this.expenseChartData = this.getChartData('ContaPagar', 'Gráfico de Despesas', '#E03131');

@@ -107,7 +107,7 @@ export class ModalComponent implements OnInit {
   }
 
   fnCalculaSaldo(valorPago){
-    const valor = this.conta.saldo - valorPago;
+    const valor = parseFloat(this.conta.saldo) - valorPago;
     if(valorPago > 0){
       if(valorPago > this.conta.saldo){
         toastr.warning('O valor pago não pode ser maior que o saldo remanescente');

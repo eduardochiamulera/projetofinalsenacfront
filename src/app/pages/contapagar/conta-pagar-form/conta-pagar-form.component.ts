@@ -27,6 +27,14 @@ export class ContaPagarFormComponent extends BaseResourceFormComponent<ContaFina
   statusClass = "not-active";
   public paginaAtual = 1;
   public pageSize = 10;
+  imaskConfig = {
+    mask: Number, //tipo da mascara
+    scale: 2, //escala decimal ...,00
+    thousandsSeparator: '', //separador de milhares - em branco
+    padFractionalZeros: true, //adicionar zeros depois da virgula -> 2,2 = 2,20
+    normalizeZeros: true, 
+    radix: ',' //separador de decimais
+  }
 
   constructor(
     protected contaPagarService: ContaPagarService, protected injector: Injector) {

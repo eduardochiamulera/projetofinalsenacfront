@@ -73,9 +73,9 @@ export class ReportsComponent implements OnInit {
 
     this.entries.forEach(entry => {
       if(entry.tipoContaFinanceira == 'ContaReceber')
-        revenueTotal += entry.valorPago ?? 0
+        revenueTotal += parseFloat(entry.valorPago) ?? 0
       else
-        expenseTotal += entry.valorPago ?? 0
+        expenseTotal += parseFloat(entry.valorPago) ?? 0
     })
 
     this.expenseTotal = currencyFormatter.format(expenseTotal, { code : 'BRL'});
@@ -100,7 +100,7 @@ export class ReportsComponent implements OnInit {
       //if found entries, then sum entries amount and add to chartData
       if(filteredEntries.length > 0){
         const totalAmount = filteredEntries.reduce(
-          (total, entry) => total + entry.valorPrevisto, 0
+          (total, entry) => total + parseFloat(entry.valorPrevisto), 0
         )
 
         chartData.push({

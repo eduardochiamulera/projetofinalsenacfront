@@ -3,8 +3,8 @@ import { BaseResourceModel } from "../base/base-resource.model";
 import { ContaFinanceiraBaixa } from "./conta-financeira-baixa.model";
 export class ContaFinanceira extends BaseResourceModel{
     constructor(
-        public valorPrevisto?: number,
-        public valorPago?: number,
+        public valorPrevisto?: string,
+        public valorPago?: string,
         public categoriaId?: string,
         public condicaoParcelamentoId?: string,
         public pessoaId?: string,
@@ -18,7 +18,7 @@ export class ContaFinanceira extends BaseResourceModel{
         public tipoPeriodicidade?: string,
         public numeroRepeticoes?: string,
         public descricaoParcela?: string,
-        public saldo?: number,
+        public saldo?: string,
         public numero?: string,
         public categoriaNome?: string,
         public condicaoParcelamentoNome?: string,

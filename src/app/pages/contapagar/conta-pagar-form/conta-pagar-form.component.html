@@ -24,6 +24,7 @@
         <div class="card-body">
             <div class="form-row">
               <input type="hidden" formControlName="id">
+              <input type="hidden" formControlName="valorPago">
               <input type="hidden" formControlName="statusContaBancaria" [ngModel]="0">
               <input type="hidden" formControlName="tipoContaFinanceira" [ngModel]="0">
                 <div class="form-group row">
@@ -69,7 +70,7 @@
               <div class="form-group row">
                 <div class="col-sm-2">
                   <label for="valorPrevisto">Valor</label>
-                  <input type="text" class="form-control" id="valorPrevisto" formControlName="valorPrevisto">
+                  <input type="text" [disabled]="resource.id && resource.statusContaBancaria != '0'" class="form-control" id="valorPrevisto" formControlName="valorPrevisto">
                   <div class="text-danger" *ngIf="resourceForm.get('valorPrevisto').invalid && resourceForm.get('valorPrevisto').touched">
                        <div *ngIf="resourceForm.get('valorPrevisto').errors.required">dado obrigatório</div>
                   </div>
@@ -232,6 +233,7 @@
       <table class="table table-hover">
         <thead>
           <tr class="bg-primary text-light">
+            <th>Data</th>
             <th>Valor Pago</th>
             <th>Observação Baixa</th>
           </tr>
@@ -239,7 +241,10 @@
         <tbody>
           <tr *ngFor="let baixa of resource.baixas | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual }; let i = index">
             <td>
-              <strong>{{baixa.valor}}</strong><br>
+              <strong>{{baixa.data | date: 'dd/MM/yyyy'}}</strong><br>
+            </td>
+            <td>
+              <strong>{{baixa.valor | currency:'BRL':true}}</strong><br>
             </td>
             <td>
               <strong>{{baixa.observacao  }}</strong><br>
